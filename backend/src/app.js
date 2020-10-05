@@ -9,6 +9,7 @@ const index = require('./routes/index')
 const path=require('path')
 const userRoutes=require("./routes/user.js")
 const adminUserRoutes=require("./routes/admin/adminUser.js")
+const categoryRoutes=require("./routes/category.js")
 
 
 // error handler
@@ -40,6 +41,7 @@ render(app, {
 app.use(index.routes(), index.allowedMethods())
 app.use(userRoutes.routes(), userRoutes.allowedMethods())
 app.use(adminUserRoutes.routes(), adminUserRoutes.allowedMethods())
+app.use(categoryRoutes.routes(), categoryRoutes.allowedMethods())
 
 // error-handling
 app.on('error', (err, ctx) => {

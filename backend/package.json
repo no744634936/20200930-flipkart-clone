@@ -24,7 +24,8 @@
     "koa-router": "^7.4.0",
     "koa-static": "^5.0.0",
     "koa-views": "^6.2.0",
-    "mongoose": "^5.10.7"
+    "mongoose": "^5.10.7",
+    "slugify": "^1.4.5"
   },
   "devDependencies": {
     "cross-env": "^7.0.2",

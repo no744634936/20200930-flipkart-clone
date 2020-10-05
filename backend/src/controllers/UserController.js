@@ -37,7 +37,7 @@ class UserController{
         //查到email了,检查密码是否正确
         if(find_result.password===docrypto(password)){
             //返回token
-            let payload={ userId: find_result._id}
+            let payload={ userId: find_result._id,role:find_result.role}
             let token = jwt.sign(payload,JWT_SECRET_KEY,{expiresIn:60*60*2});//expiresIn的单位为秒
             // return token
             ctx.body=new Success({
