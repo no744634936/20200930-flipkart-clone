@@ -16,9 +16,9 @@ class CategoryModel {
     
         const newCategory=new Categories(categoryObj)
         let response=await newCategory.save();
-        console.log(name);
-        console.log(parentId);
-        console.log(response);
+        // console.log(name);
+        // console.log(parentId);
+        // console.log(response);
         return response
     }
     getAllCategories =async() => {

@@ -1,60 +1,25 @@
-在 20200929-koa-template的基础之上进行开发的
+npm install koa-multer --save
+npm install uuid --save
 
 
-backend文件夹里面的普通user跟admin的注册登录的路由所使用的controller跟model
-几乎是一摸一样的，但我还是把他们分开了。为了好读一点。
+// koa-bodyparser は multipart/form-data に非対応
+//下面这个路由使用了 multer，来传图片，在postman那边就必须使用 form-data 格式来传递数据。
+//controller里面取出数据时也必须使用 ctx.req.body 来取
 
-router.post("/api/signup",validate_signup,userController.singup)
-router.post("/api/admin/signup",validate_signup,adminUserController.singup)
-
-如果要把他们合并的话，路由就得这样写。
-
-router.post("/api/signup",validate_signup,userController.singup())
-router.post("/api/admin/signup",validate_signup,userController.singup("admin"))
+router.post("/api/product/create",requireSigin,requireAdmin,upload.array("productPicture"),productController.createProduct)
 
 
-然后，controller就得这样写
+//当一个路由没有使用 multer的时候，postman那边用 x-www-form-urlencode 格式来传递数据即可，
+//controller里面取出数据时也必须使用 ctx.reqest.body 来取
 
----------------------------------------------------------------------------------
 
 
-singup=(role)=>{
-    returnasync (ctx,next)=>{
-        let {firstName,lastName,password,email}=ctx.request.body;
-        let find_result=await userModel.find_one_by_email(email)
-        if(find_result){   
-            ctx.body=new Error(email_exist)
-            return
-        }
-        try {
-            let newUser=await userModel.create_user(firstName,lastName,password,email,role)
-            ctx.body=new Success()
-        } catch (error) {
-            console.error(error.message,error.stack);
-            ctx.body=new Error(register_failed_info)
-        }
-    }
-}
-=------------------------------------------------------------------------------
-model就得这样写
+---------------------------------------------------
+当controller 向model传递参数的时候要记得参数的位置要一一对应。
 
-create_user=async(firstName,lastName,password,email,role)=>{
-        let newRecord=new Users({
-            firstName,
-            lastName,
-            password:docrypto(password),
-            email,
-            userName:Math.random().toString(),
-            avatar:DEFAULT_USER_AVATAR,
-            role:role ?role:"user"
-        })
-        let response=await newRecord.save();
-        return response;
-    }
-    //查
-    find_one=async(Id)=>{
-        let response=await Users.findOne({Id:Id})  
-        return response;
-    }
 
-    -------------------------------------------------
+
+-----------------------------------------------------------
+
+
+产品数据存入数据库失败图片也会上传，product创建失败时，想个办法把上传的图片删除
