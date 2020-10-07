@@ -27,4 +27,6 @@ module.exports={
     not_liked:{errnum:10018 ,messages:"还没点赞"},
     comment_not_exist:{errnum:10019 ,messages:"该评论不存在"},
     email_not_exist:{errnum:1000,message:"邮箱不存在"},
+    add_to_cart_failed:{errnum:100021,message:"添加到购物车失败"},
+    create_product_failed:{errnum:100021,message:"新建商品失败"},
 }

@@ -11,6 +11,7 @@ const userRoutes=require("./routes/user.js")
 const adminUserRoutes=require("./routes/admin/adminUser.js")
 const categoryRoutes = require("./routes/category.js")
 const productRoutes=require("./routes/product.js")
+const cartRoutes=require("./routes/cart.js")
 
 
 // error handler
@@ -44,6 +45,7 @@ app.use(userRoutes.routes(), userRoutes.allowedMethods())
 app.use(adminUserRoutes.routes(), adminUserRoutes.allowedMethods())
 app.use(categoryRoutes.routes(), categoryRoutes.allowedMethods())
 app.use(productRoutes.routes(), productRoutes.allowedMethods())
+app.use(cartRoutes.routes(), cartRoutes.allowedMethods())
 
 // error-handling
 app.on('error', (err, ctx) => {
