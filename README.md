@@ -1,25 +1,36 @@
-npm install koa-multer --save
-npm install uuid --save
+
+router.post("/api/cart/addtocart",requireSigin,requireUser,CartController.addItemToCart)
+
+这个路由用postman来传递数据的时候要使用row，选JSON(json/application) 格式
+而且json里面的最后一个元素后面不能打逗号。
 
 
-// koa-bodyparser は multipart/form-data に非対応
-//下面这个路由使用了 multer，来传图片，在postman那边就必须使用 form-data 格式来传递数据。
-//controller里面取出数据时也必须使用 ctx.req.body 来取
+错误型
+{
+	"cartItems":[
+		{
+			"product":"5f7d0e66a60cd50db8904001",
+			"quantity":2,
+			"price":18000
+		}
+	],
+}
 
-router.post("/api/product/create",requireSigin,requireAdmin,upload.array("productPicture"),productController.createProduct)
 
-
-//当一个路由没有使用 multer的时候，postman那边用 x-www-form-urlencode 格式来传递数据即可，
-//controller里面取出数据时也必须使用 ctx.reqest.body 来取
-
-
+正确型
+{
+	"cartItems":[
+		{
+			"product":"5f7d0e66a60cd50db8904001",
+			"quantity":2,
+			"price":18000
+		}
+	]
+}
 
 ---------------------------------------------------
-当controller 向model传递参数的时候要记得参数的位置要一一对应。
+一个人只有一个cart
 
-
-
------------------------------------------------------------
-
-
-产品数据存入数据库失败图片也会上传，product创建失败时，想个办法把上传的图片删除
+当用户点击添加到购物车按钮的时候，
+第一次添加，要新建一个cart记录
+第二次添加商品要就要将商品添加到原来的cart的记录里面去。
