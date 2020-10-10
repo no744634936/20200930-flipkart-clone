@@ -21,3 +21,7 @@ router.post("/api/product/create",requireSigin,requireAdmin,upload.array("produc
 
 
 产品数据存入数据库失败图片也会上传，product创建失败时，想个办法把上传的图片删除
+
+
+我在这一节使用koa-multer来传文件。因为这个包很烂。
+后面我使用的是 ＠koa/multer 来传的文件
