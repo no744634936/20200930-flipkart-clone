@@ -1,10 +1,10 @@
-const router = require('koa-router')()
+const Router = require('koa-router')
+const router = new Router()
 const productController = require("../controllers/ProductController.js")
 const requireSigin =require("../middleWare/requireSigin")
 const requireAdmin = require("../middleWare/requireAdmin")
 const path=require("path")
-
-const multer = require('koa-multer');
+const multer = require('@koa/multer');
 const storage=multer.diskStorage({
     //文件保存路径 
     destination:function(req,file,cb){ 
@@ -16,9 +16,14 @@ const storage=multer.diskStorage({
          cb(null,Date.now()+"."+fileFormat[fileFormat.length-1]); 
     } 
 })
+const limits = {
+    fields: 10,//Number of non-file fields
+    fileSize: 500 * 1024,//File Size Unit b
+    files: 6//Number of documents
+}
 
 //加载配置
-const upload = multer({ storage: storage })
+const upload = multer({storage,limits })
 
 router.post("/api/product/create",requireSigin,requireAdmin,upload.array("productPicture"),productController.createProduct)
 router.get("/api/product/products",productController.getAllProducts)

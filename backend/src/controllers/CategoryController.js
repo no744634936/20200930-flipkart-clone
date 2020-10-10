@@ -1,17 +1,20 @@
 const categoryModel =require('../models/CategoryModel.js')
 const{Success,Error}= require("../myTool/apiResultFormat.js")
-
+const { create_category_failed} = require("../myTool/errInfo.js")
 
 
 class CategoryController {
     createCategory=async (ctx,next)=>{
+
         const {name,parentId}=ctx.request.body
+        const pictureName=ctx.request.file.filename
+        console.log(ctx.request.file);
         try{
-            let newCategory=await categoryModel.createCategory(name,parentId)
-            ctx.body=new Success()
+            let newCategory=await categoryModel.createCategory(name,parentId,pictureName)
+            ctx.body=new Success(newCategory)
         }catch(err){
             console.error(err.message,err.stack);
-            ctx.body=new Error(create_user_failed)
+            ctx.body=new Error(create_category_failed)
         }
     }
     getAllCategories = async (ctx, next) => {

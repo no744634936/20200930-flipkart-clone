@@ -7,12 +7,12 @@ const { create_product_failed} = require("../myTool/errInfo.js")
 class ProductController {
     createProduct = async (ctx, next) => {
         try{
-            console.log(ctx.req.body);
-            const { name, price, description, category, quantity,test } = ctx.req.body
+            console.log(ctx.request.files);
+            const { name, price, description, category, quantity,test } = ctx.request.body
             let createdBy = ctx.request.userInfo.userId;
             let productPictures = [];
-            if (ctx.req.files.length > 0) {
-                productPictures = ctx.req.files.map(file => { return { img:file.filename }})
+            if (ctx.request.files.length > 0) {
+                productPictures = ctx.request.files.map(file => { return { img:"/uploadPictures/"+file.filename }})
             }
             let newProduct = await productModel.createProduct(name, price, description,quantity, category, createdBy,test,productPictures)
     

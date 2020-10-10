@@ -29,4 +29,5 @@ module.exports={
     email_not_exist:{errnum:1000,message:"邮箱不存在"},
     add_to_cart_failed:{errnum:100021,message:"添加到购物车失败"},
     create_product_failed:{errnum:100021,message:"新建商品失败"},
+    create_category_failed:{errnum:100021,message:"种类创建失败"},
 }

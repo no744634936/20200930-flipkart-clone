@@ -7,10 +7,8 @@ class CartController {
     addItemToCart=async(ctx,next)=>{
         try{
             let userId = ctx.request.userInfo.userId;
-            let cartItems=ctx.request.body.cartItems;
-            console.log(userId);
-            console.log(cartItems);
-            let result=await cartModel.addItemToCart(userId,cartItems)
+            let cartItem=ctx.request.body.cartItem;
+            let result=await cartModel.addItemToCart(userId,cartItem)
             ctx.body=new Success(result);
 
         }catch(err){

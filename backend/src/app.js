@@ -23,7 +23,10 @@ app.use(bodyparser({
 }))
 app.use(json())
 app.use(logger())
-app.use(require('koa-static')(__dirname + '/public'))
+
+//http://localhost:3000/uploadPictures/1602031206121.jpg 用这种连接来访问静态资源。
+app.use(require('koa-static')(path.join(__dirname,'/public')))
+console.log(path.join(__dirname,'/public/uploadPictures'));
 
 render(app, {
     root: path.join(__dirname, 'views'),   //视图的位置

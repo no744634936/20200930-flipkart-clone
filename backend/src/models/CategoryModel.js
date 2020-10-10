@@ -1,17 +1,20 @@
 
 const slugify=require("slugify")
 const Categories =require("../db/category.js")
-
+const {PROJECT_URL}= require("../config/keys.js")
 
 class CategoryModel {
-    createCategory=async (name,parentId)=>{
+    createCategory=async (name,parentId,pictureName)=>{
         const categoryObj={
             name:name,
-            slug:slugify(name)
+            slug:slugify(name),
         }
     
         if(parentId){
             categoryObj.parentId=parentId
+        }
+        if(pictureName){
+            categoryObj.categoryImage="/uploadPictures/"+pictureName
         }
     
         const newCategory=new Categories(categoryObj)
