@@ -27,7 +27,8 @@ module.exports={
     not_liked:{errnum:10018 ,messages:"还没点赞"},
     comment_not_exist:{errnum:10019 ,messages:"该评论不存在"},
     email_not_exist:{errnum:1000,message:"邮箱不存在"},
-    add_to_cart_failed:{errnum:100021,message:"添加到购物车失败"},
+    add_to_cart_failed:{errnum:100020,message:"添加到购物车失败"},
     create_product_failed:{errnum:100021,message:"新建商品失败"},
-    create_category_failed:{errnum:100021,message:"种类创建失败"},
+    create_category_failed: { errnum: 100022, message: "种类创建失败" },
+    SIGNOUT_SUCCESSED:{ errnum:100023, message: "退出成功" },
 }

@@ -1,5 +1,5 @@
 const adminUserModel =require("../../models/admin/AdminUserModel.js")
-const { email_exist, register_failed_info,email_not_exist} = require("../../myTool/errInfo.js")
+const { email_exist, register_failed_info,email_not_exist,SIGNOUT_SUCCESSED} = require("../../myTool/errInfo.js")
 const{Success,Error}= require("../../myTool/apiResultFormat.js")
 const {JWT_SECRET_KEY} =require("../../config/keys.js")
 const jwt = require('jsonwebtoken');
@@ -42,7 +42,8 @@ class AdminUserController{
             // return token
             ctx.body=new Success({
                 status:200,
-                token:"bearer "+token,  //必须加bearer这个字符串,注意中间有个空格
+                token: "bearer " + token,  //必须加bearer这个字符串,注意中间有个空格
+                user:find_result,
             })
         }else{
             ctx.body=new Error(password_wrong)
@@ -53,6 +54,11 @@ class AdminUserController{
     getProfile=async(ctx,next)=>{
         console.log(ctx);
         ctx.body="test profile"
+    }
+
+    signout=async(ctx,next)=>{
+        ctx.cookies.set('token_cookie', null);
+        ctx.body=new Success(SIGNOUT_SUCCESSED)
     }
 }
 
