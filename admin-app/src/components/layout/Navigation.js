@@ -38,7 +38,7 @@ function Navigation() {
         <Fragment>
             <nav className="navbar navbar-expand-sm navbar-dark bg-dark mb-3">
                 <div className="container">
-                    <Link className="navbar-brand" href="#">EC site</Link>
+                    <Link className="navbar-brand" to="#">EC site</Link>
                     <button className="navbar-toggler" data-toggle="collapse" data-target="#navbarNav">
                         <span className="navbar-toggler-icon"></span>
                     </button>

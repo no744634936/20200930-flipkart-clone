@@ -7,6 +7,7 @@ import SignUp from "./components/signup/SignUp.js"
 import {loadUserAction} from "./redux/authentication/authAction"
 import { useDispatch, useSelector } from "react-redux";
 import Products from "./components/products/Products.js"
+import Category from "./components/category/Category.js"
 
 function App() {
 
@@ -25,6 +26,7 @@ function App() {
                 <Switch>
                     <PrivateRoute exact path="/" component={Home}></PrivateRoute>
                     <PrivateRoute exact path="/products" component={Products}></PrivateRoute>
+                    <PrivateRoute exact path="/category" component={Category}></PrivateRoute>
                     <Route exact path="/signin" component={SignIn}></Route>
                     <Route exact path="/signup" component={SignUp}></Route>
                 </Switch>

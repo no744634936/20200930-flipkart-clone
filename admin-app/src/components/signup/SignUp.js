@@ -66,7 +66,7 @@ function SignUp() {
                         value={password}
                         onChange={e=>setValue(e)}
                     />
-                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <button type="submit" className="btn btn-primary">Submit</button>
                 </form>
             </Layout2>
         </Fragment>

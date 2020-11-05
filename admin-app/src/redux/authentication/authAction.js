@@ -21,8 +21,6 @@ export const loginAction=(formData)=>{
                 }
             }
             let result = await axios.post("/api/admin/signin", formData, config);
-            console.log("hahahaa",result);
-            // console.log(result);
             // console.log(result.data.data.token);
             if(result.data.errnum===0){
                 dispatch({type:LOGIN_SUCCESSED,payload:result.data.data})
