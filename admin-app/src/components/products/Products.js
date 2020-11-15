@@ -3,7 +3,7 @@ import Layout from "../layout/Layout.js"
 function Products() {
     return (
         <Fragment>
-            <Layout>
+            <Layout sidebar>
                 test
             </Layout>
         </Fragment>

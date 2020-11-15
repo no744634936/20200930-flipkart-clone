@@ -1,9 +1,10 @@
 import React, { Fragment,useState} from 'react'
-import Layout2 from "../layout/Layout2.js"
+import Layout from "../layout/Layout.js"
 import Input from "../UI//Input.js"
 import {loginAction} from "../../redux/authentication/authAction.js"
 import {useDispatch,useSelector} from "react-redux";
 import { Redirect } from 'react-router-dom';
+import { Container,Form,Button,Row,Col} from 'react-bootstrap';
 
 
 function SignIn(props) {
@@ -14,10 +15,13 @@ function SignIn(props) {
     });
 
     const setValue= e =>setFormData({...formData,[e.target.name]:e.target.value})
+   
     const {email,password,error}=formData;
+
     const dispatch=useDispatch();
 
-    const submitData=async (e) =>{
+    const submitData = async (e) => {
+        console.log(formData);
         e.preventDefault();
         dispatch(loginAction(formData))
     }
@@ -30,8 +34,35 @@ function SignIn(props) {
     }
     return (
         <Fragment>
-            <Layout2>
-                <form  onSubmit={e=>submitData(e)}>
+            <Layout>
+                <Container>
+                    <Row>
+                        <Col>
+                            <Form onSubmit={e => submitData(e)}>
+                                <Input
+                                    label="Email"
+                                    placeholder="Email"
+                                    value={email}
+                                    type="email"
+                                    name="email"
+                                    onChange={e=>setValue(e)}
+                                />
+                                <Input
+                                    label="password"
+                                    placeholder="password"
+                                    value={password}
+                                    type="password"
+                                    name="password"
+                                    onChange={e=>setValue(e)}
+                                />
+                                <Button variant="primary" type="submit">
+                                    Submit
+                                </Button>
+                            </Form>
+                        </Col>
+                    </Row>
+                </Container>
+                {/* <form  onSubmit={e=>submitData(e)}>
                     <Input
                         label="email address" 
                         type="email"
@@ -48,9 +79,9 @@ function SignIn(props) {
                         value={password}
                         onChange={e=>setValue(e)}
                     />
-                    <button type="submit" className="btn btn-primary">Submit</button>
-                </form>
-            </Layout2>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </form> */}
+            </Layout>
         </Fragment>
     )
 }

@@ -1,5 +1,5 @@
 //register
-export const REGISTER_USER_REQUEST="register user request"
+export const REGISTER_USER_REQUEST="register user request";
 export const REGISTER_USER_SUCCESSED="register user successed"
 export const REGISTER_USER_FAILED="register user failed"
 
@@ -18,10 +18,4 @@ export const LOGOUT='logout successed'
 export const LOGOUT_FAILED='logout failed'
 
 export const DELETE_ACCOUNT="delete account"
-export const DELETE_ACCOUNT_FAILED = "delete account failed"
-
-
-//category
-export const GET_ALL_CATEGORIES_REQUEST="get all categories request"
-export const GET_ALL_CATEGORIES_SUCCESS="get all categories success"
-export const GET_ALL_CATEGORIES_FAILED="get all categories failed"
+export const DELETE_ACCOUNT_FAILED ="delete account failed"

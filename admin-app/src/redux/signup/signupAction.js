@@ -15,7 +15,7 @@ export const signupAction=(formData)=>{
                 }
             }
             let result= await axios.post("/api/admin/signup",formData,config);
-            console.log(result);
+            // console.log(result);
             // console.log(result.data.data.token);
             console.log(result);
             if(result.data.errnum===0){

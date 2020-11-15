@@ -17,11 +17,11 @@ export const loginAction=(formData)=>{
             dispatch({type:LOGIN_REQUEST})
             let config={
                 header:{
-                    'Content-Type':'applicaiton/json'
+                    'Content-Type':'application/json'
                 }
             }
-            let result = await axios.post("/api/admin/signin", formData, config);
-            // console.log(result.data.data.token);
+            let result= await axios.post("/api/admin/signin",formData,config);
+
             if(result.data.errnum===0){
                 dispatch({type:LOGIN_SUCCESSED,payload:result.data.data})
             }else{
