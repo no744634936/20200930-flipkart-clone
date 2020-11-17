@@ -38,7 +38,7 @@ class AdminUserController{
         if(find_result.password===docrypto(password)&&find_result.role==="admin"){
             //返回token
             let payload={ userId: find_result._id,role:find_result.role}
-            let token = jwt.sign(payload,JWT_SECRET_KEY,{expiresIn:60*60*2});//expiresIn的单位为秒
+            let token = jwt.sign(payload,JWT_SECRET_KEY,{expiresIn:"2h"});//expiresIn的单位为秒
             // return token
             ctx.body=new Success({
                 status:200,

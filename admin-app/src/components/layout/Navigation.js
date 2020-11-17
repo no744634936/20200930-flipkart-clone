@@ -9,7 +9,7 @@ function Navigation() {
     const logout=()=>{
         dispatch(signoutAction());
     }
-
+    console.log(loginData.isAuthenticated);
     const authLinks = (
         <Fragment>
             <Nav>

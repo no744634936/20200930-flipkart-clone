@@ -15,7 +15,7 @@ function SignIn(props) {
     });
 
     const setValue= e =>setFormData({...formData,[e.target.name]:e.target.value})
-   
+
     const {email,password,error}=formData;
 
     const dispatch=useDispatch();

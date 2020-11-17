@@ -1,5 +1,4 @@
 import axios from "axios"
-import { ListGroup } from "react-bootstrap"
 import {categoryConstants} from "../actionTyps.js"
 export const getAllCategories=()=>{
     return async(dispatch)=>{
@@ -11,7 +10,6 @@ export const getAllCategories=()=>{
                 type:categoryConstants.GET_ALL_CATEGORIES_SUCCESS,
                 payload:{categories:categoryList},
             })
-            
         }else{
             dispatch({
                 type:categoryConstants.GET_ALL_CATEGORIES_FAILED,
@@ -26,7 +24,6 @@ export const addCategory=(form)=>{
     return async(dispatch)=>{
         dispatch({type:categoryConstants.ADD_NEW_CATEGORIES_REQUEST})
         const response=await axios.post("/api/category/create",form)
-        console.log(response);
         if(response.status==200){
             dispatch({
                 type:categoryConstants.ADD_NEW_CATEGORIES_SUCCESS,

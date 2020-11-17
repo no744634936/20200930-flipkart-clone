@@ -37,7 +37,7 @@ const Category = props => {
         form.append("name",categoryName)
         form.append("parentId",parentCategoryId)
         form.append("categoryImage",categoryImage)
-
+        console.log("formData",form);
         dispatch(addCategory(form))
         setShow(false)
     };
@@ -98,7 +98,7 @@ const Category = props => {
                         onChange={e=>setCategoryName(e.target.value)}
                     />
 
-                    <select 
+                    <select
                         className="form-control"
                         value={parentCategoryId}
                         onChange={e=>setParentCategoryId(e.target.value)}
@@ -106,7 +106,7 @@ const Category = props => {
                         <option>select category</option>
                         {
                             createCategoryList(categoriesData.categories).map(option=>{
-                                return <option key={option._id} value={option.name}>{option.name}</option>
+                                return <option key={option.id} value={option.id}>{option.name}</option>
                             })
                         }
                     </select>

@@ -24,7 +24,7 @@ const initialState={
  const authReducer=(state=initialState,action)=>{
     switch(action.type){
         case LOGIN_REQUEST:
-            return{
+            state={
                 ...initialState
             }
             break;
@@ -32,44 +32,44 @@ const initialState={
             localStorage.setItem("token",action.payload.token) //放到本地的token包含了用户的信息，需要从token里解析出用户信息
             localStorage.setItem("user",JSON.stringify(action.payload.user))  //将user的信息也放进localStorage.
             setAuthToken(action.payload.token)  //设置全局的header 然后每一个页面就都可以使用这个header了
-            return {
+            state= {
                 ...initialState,
-                isAuthenticated:true, 
+                isAuthenticated:true,
                 loading:false,
-                user: action.payload.user, 
+                user: action.payload.user,
                 token:action.payload.token,
             }
             break;
         case USER_LOADED:
-            return {
+            state= {
                 ...initialState,
-                isAuthenticated:true, 
+                isAuthenticated:true,
                 loading:false,
-                user: action.payload.user, 
+                user: action.payload.user,
                 token:action.payload.token,
             }
             break;
         case LOGOUT_REQUEST:
-            return {
+            state= {
                 ...state,
                 loading:true,
             }
             break;
         case LOGIN_FAILED:
-            return {
+            state= {
                 ...state,
                 error: action.payload.message,
                 loading:false,
             }
             break;
         case LOGOUT:
-        case LOGIN_FAILED: 
-            return{
+        case LOGIN_FAILED:
+            state={
                 ...initialState,
             }
             break;
-        default: return initialState
-    }
+     }
+     return state;
 }
 
  export  default authReducer
