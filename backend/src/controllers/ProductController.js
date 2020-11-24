@@ -11,6 +11,8 @@ class ProductController {
             const { name, price, description, category, quantity,test } = ctx.request.body
             let createdBy = ctx.request.userInfo.userId;
             let productPictures = [];
+            console.log("----------------------------------------------------");
+            console.log("files",ctx.request.files);
             if (ctx.request.files.length > 0) {
                 productPictures = ctx.request.files.map(file => { return { img:"/uploadPictures/"+file.filename }})
             }

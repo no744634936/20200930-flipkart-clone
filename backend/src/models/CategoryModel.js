@@ -31,7 +31,9 @@ class CategoryModel {
     }
 
     //这里用到了递归，有点难理解。多理解一下。
+    //
     formatCategories=(categories,parentId=null)=>{
+        
         let categoryList=[];
         let allCategory=[];
         if(parentId==null){
@@ -47,18 +49,21 @@ class CategoryModel {
                 _id:category._id,
                 name:category.name,
                 slug:category.slug,
+                parentId:category.parentId,
                 children:this.formatCategories(categories,category._id)
             })
         })
-        console.log("hahah",categoryList);
         return categoryList;
     }
 
     getAllFormattedCategories =async() => {
         let response=await Categories.find({})
         let categoryList
+        console.log("fuck");
+        console.log("response",response);
         if(response){
             categoryList=this.formatCategories(response);
+            console.log("categoryList",JSON.stringify(categoryList));
         }
         return categoryList;
     }
