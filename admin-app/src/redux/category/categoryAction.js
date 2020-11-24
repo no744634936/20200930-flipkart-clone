@@ -24,10 +24,16 @@ export const addCategory=(form)=>{
     return async(dispatch)=>{
         dispatch({type:categoryConstants.ADD_NEW_CATEGORIES_REQUEST})
         const response=await axios.post("/api/category/create",form)
+        console.log("create",response);
         if(response.status==200){
             dispatch({
                 type:categoryConstants.ADD_NEW_CATEGORIES_SUCCESS,
-                payload:response.data.category
+                payload:{category:response.data.data},
+            })
+        }else{
+            dispatch({
+                type:categoryConstants.ADD_NEW_CATEGORIES_FAILED,
+                payload:response.data.error,
             })
         }
     }
