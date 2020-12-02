@@ -35,7 +35,6 @@ class AdminUserModel{
 
     find_all=async()=>{
         let response=await Users.find({})
-        console.log(response);
         return response;
     }
 }

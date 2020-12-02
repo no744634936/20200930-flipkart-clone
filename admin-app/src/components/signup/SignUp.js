@@ -1,6 +1,6 @@
 import React,{Fragment,useState}from 'react'
 import Layout from "../layout/Layout.js"
-import Input from "../UI//Input.js"
+import Input from "../UI/Input/Input.js"
 import {useSelector,useDispatch} from "react-redux"
 import {signupAction} from "../../redux/signup/signupAction.js"
 import { Container,Form,Button,Row,Col} from 'react-bootstrap';

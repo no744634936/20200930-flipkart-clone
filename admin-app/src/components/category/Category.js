@@ -1,18 +1,21 @@
 import React,{useEffect,useState} from 'react'
 import Layout from "../../components/layout/Layout.js"
-import {Container,Row,Col,Modal,Button} from "react-bootstrap"
+import {Container,Row,Col} from "react-bootstrap"
 import {useDispatch,useSelector} from "react-redux"
-import {getAllCategories,addCategory} from "../../redux/category/categoryAction.js"
-import Input from "../UI/Input.js"
+import {addCategory} from "../../redux/category/categoryAction.js"
+import Input from "../UI/Input/Input.js"
 import "./category.style.css"
+import MyModal from "../UI/Modal/MyModal.js"
 
 const Category = props => {
     const categoriesData = useSelector(state => state.categoryData)
     const dispatch=useDispatch()
 
-    useEffect(() => {
-        dispatch(getAllCategories())
-    }, [])
+    //因为product页面也要用到categories ，所以要将dispatch(getAllCategories())
+    //放到app.js 文件里面去。
+    // useEffect(() => {
+    //     dispatch(getAllCategories())
+    // }, [])
 
 
     //递归算法,将category放进li
@@ -37,6 +40,11 @@ const Category = props => {
         form.append("parentId",parentCategoryId)
         form.append("categoryImage",categoryImage)
         dispatch(addCategory(form))
+
+        //将数据post到后台之后，前端表格要清空输入的数据
+        setCategoryName("")
+        setParentCategoryId("");
+
         setShow(false)
     };
     const handleShow = () => setShow(true);
@@ -83,13 +91,11 @@ const Category = props => {
                     </Col>
                 </Row>
             </Container>
-
-
-            <Modal show={show} onHide={handleClose} animation={false}>
-                <Modal.Header closeButton>
-                    <Modal.Title>Add new category</Modal.Title>
-                </Modal.Header>
-                <Modal.Body>
+            <MyModal 
+                show={show}
+                handleClose={handleClose}
+                modalTitle={"Add New Category"}
+            >
                     <Input
                         value={categoryName}
                         placeholder={`category name`}
@@ -110,16 +116,7 @@ const Category = props => {
                     </select>
 
                     <input type="file" name="categoryImage" onChange={handleCategoryImage}></input>
-                </Modal.Body>
-                <Modal.Footer>
-                    <Button variant="secondary" onClick={handleClose}>
-                        Close
-                    </Button>
-                    <Button variant="primary" onClick={handleClose}>
-                        Save Changes
-                    </Button>
-                </Modal.Footer>
-            </Modal>
+            </MyModal>
         </Layout>
     )
 }

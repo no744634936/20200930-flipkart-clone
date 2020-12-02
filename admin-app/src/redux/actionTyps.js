@@ -31,3 +31,16 @@ export const categoryConstants={
      ADD_NEW_CATEGORIES_FAILED:"add new category failed",
 }
 
+//product
+export const productConstants={
+    GET_ALL_PRODUCTS_REQUEST:"get all products request",
+    GET_ALL_PRODUCTS_SUCCESS:"get all products success",
+    GET_ALL_PRODUCTS_FAILED:"get all products failed"
+}
+
+//initData
+export const initDataConstants={
+    GET_ALL_INITIAL_DATA_REQUEST:"get all initial data request",
+    GET_ALL_INITIAL_DATA_SUCCESS:"get all initial data success",
+    GET_ALL_INITIAL_DATA_FAILED:"get all initial data failed",
+}

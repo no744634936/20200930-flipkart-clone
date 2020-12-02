@@ -1,6 +1,6 @@
 import React, { Fragment,useState} from 'react'
 import Layout from "../layout/Layout.js"
-import Input from "../UI//Input.js"
+import Input from "../UI/Input/Input.js"
 import {loginAction} from "../../redux/authentication/authAction.js"
 import {useDispatch,useSelector} from "react-redux";
 import { Redirect } from 'react-router-dom';

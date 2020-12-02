@@ -14,7 +14,7 @@ function Sidebar(props) {
                     <li><NavLink to={"/orders"}>Orders</NavLink></li>
                 </ul>
             </Col>
-            <Col md={10} className="content">
+            <Col md={10} className="content" style={{paddingTop:"60px"}}>
                 {props.children}
             </Col>
         </Row>

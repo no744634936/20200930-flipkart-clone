@@ -59,8 +59,6 @@ class CategoryModel {
     getAllFormattedCategories =async() => {
         let response=await Categories.find({})
         let categoryList
-        console.log("fuck");
-        console.log("response",response);
         if(response){
             categoryList=this.formatCategories(response);
             console.log("categoryList",JSON.stringify(categoryList));

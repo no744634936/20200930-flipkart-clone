@@ -23,6 +23,9 @@ export const getAllCategories=()=>{
 export const addCategory=(form)=>{
     return async(dispatch)=>{
         dispatch({type:categoryConstants.ADD_NEW_CATEGORIES_REQUEST})
+
+        console.log("form---",form);
+        
         const response=await axios.post("/api/category/create",form)
         console.log("create",response);
         if(response.status==200){

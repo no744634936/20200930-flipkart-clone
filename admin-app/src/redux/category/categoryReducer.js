@@ -7,17 +7,29 @@ const initState={
 }
 
 
-const buildNewCategories=(pareIdntId,categories,Newcategory)=>{
+const buildNewCategories=(parentId,categories,Newcategory)=>{
     let myCategories=[];
-
-    console.log("shit",categories);
-
+    //加father {category
+    if(parentId==undefined){
+        return[
+            ...categories,
+            {
+                _id:Newcategory._id,
+                name:Newcategory.name,
+                slug:Newcategory.slug,
+                children:[]
+            }
+        ]
+    }
+    
+    //加children category
+    //cate.children.length>0 和 cate.children 是同一个意思，所以就if条件里就不要用cate.children && cate.children.length>0
     categories.forEach(cate=>{
-        if(cate._id==pareIdntId){
+        if(cate._id==parentId){
             myCategories.push({
                 ...cate,
-                children:(cate.children && cate.children.length>0) ?  buildNewCategories(pareIdntId,[...cate.children,{
-                    pareIdntId:Newcategory._id,
+                children:(cate.children) ?  buildNewCategories(parentId,[...cate.children,{
+                    _id:Newcategory._id,
                     name:Newcategory.name,
                     slug:Newcategory.slug,
                     parentId:Newcategory.parentId,
@@ -27,13 +39,14 @@ const buildNewCategories=(pareIdntId,categories,Newcategory)=>{
         }else{
             myCategories.push({
                 ...cate,
-                children: (cate.children && cate.children.length>0) ? buildNewCategories(pareIdntId,cate.children,Newcategory):[]
+                children: (cate.children) ? buildNewCategories(parentId,cate.children,Newcategory):[]
             })
         }
     })
 
     return myCategories
 }
+
 
 const categoryReducer=(state=initState,action)=>{
     switch(action.type){
@@ -55,6 +68,7 @@ const categoryReducer=(state=initState,action)=>{
             //state.categories 是redux的store里储存的categories
             //将新的category添加到store里的categories里面去。
             let Newcategory=action.payload.category;
+
             let updatedCategories=buildNewCategories(Newcategory.parentId,state.categories,Newcategory);
             
             state={

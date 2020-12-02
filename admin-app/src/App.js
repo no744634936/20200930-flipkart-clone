@@ -8,6 +8,8 @@ import {loadUserAction} from "./redux/authentication/authAction"
 import { useDispatch, useSelector } from "react-redux";
 import Products from "./components/products/Products.js"
 import Category from "./components/category/Category.js"
+// import {getAllCategories} from "./redux/category/categoryAction.js"
+import {getInitialData} from "./redux/initData/initDataAction.js"
 
 function App() {
 
@@ -19,6 +21,7 @@ function App() {
         if(!loginData.isAuthenticated){
             dispatch(loadUserAction())
         }
+        dispatch(getInitialData())
     },[])
   return (
         <BrowserRouter>
