@@ -1,7 +1,7 @@
 const Users=require("../db/user.js")
 const {DEFAULT_USER_AVATAR}=require("../config/keys.js")
 const docrypto=require("../myTool/cryp.js")
-
+const { nanoid } =require('nanoid')
 class UserModel{
     //增
     create_user=async(firstName,lastName,password,email)=>{
@@ -10,7 +10,7 @@ class UserModel{
             lastName,
             password:docrypto(password),
             email,
-            userName:Math.random().toString(),
+            userName:nanoid(10),  //产生一个特殊的id
             avatar:DEFAULT_USER_AVATAR,
         })
         let response=await newRecord.save();

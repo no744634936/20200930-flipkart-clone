@@ -1,7 +1,7 @@
 const Users=require("../../db/user.js")
 const {DEFAULT_USER_AVATAR}=require("../../config/keys.js")
 const docrypto=require("../../myTool/cryp.js")
-
+const { nanoid } =require('nanoid')
 class AdminUserModel{
     
     //增
@@ -11,7 +11,7 @@ class AdminUserModel{
             lastName,
             password:docrypto(password),
             email,
-            userName:Math.random().toString(),
+            userName:nanoid(10),
             avatar:DEFAULT_USER_AVATAR,
             role:"admin"
         })
@@ -20,7 +20,7 @@ class AdminUserModel{
     }
     //查
     find_one=async(Id)=>{
-        let response=await Users.findOne({Id:Id})  
+        let response=await Users.findOne({Id:Id})
         return response;
     }
     find_one_by_email=async(email)=>{
