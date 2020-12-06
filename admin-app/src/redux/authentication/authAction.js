@@ -1,12 +1,14 @@
-import axios from "axios"
+import axios from "../../helper/axios.js"
+
+
 import {LOGIN_REQUEST,LOGIN_SUCCESSED,LOGIN_FAILED,
     USER_LOADED,
     USER_LOAD_FAILED,
     LOGOUT_REQUEST,
     LOGOUT,
     LOGOUT_FAILED,
-        DELETE_ACCOUNT,DELETE_ACCOUNT_FAILED,
-        REGISTER_USER_REQUEST} from "../actionTyps.js"
+    DELETE_ACCOUNT,DELETE_ACCOUNT_FAILED,
+    REGISTER_USER_REQUEST} from "../actionTypes.js"
 
 
 
@@ -15,14 +17,13 @@ export const loginAction=(formData)=>{
     return async(dispatch)=>{
         try{
             dispatch({type:LOGIN_REQUEST})
-            let config={
-                header:{
-                    'Content-Type':'application/json'
-                }
-            }
-            let result= await axios.post("/api/admin/signin",formData,config);
 
+            let result= await axios.post("/api/admin/signin",formData);
+
+            //result.data.errnum===0 也可以写成result.status===200
             if(result.data.errnum===0){
+                localStorage.setItem("token",result.data.data.token) //放到本地的token包含了用户的信息，需要从token里解析出用户信息
+                localStorage.setItem("user",JSON.stringify(result.data.data.user))  //将user的信息也放进localStorage.
                 dispatch({type:LOGIN_SUCCESSED,payload:result.data.data})
             }else{
                 // result.data.messages.forEach(msg=>{

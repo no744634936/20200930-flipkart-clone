@@ -1,7 +1,7 @@
-import axios from "axios";
+import axios from "../../helper/axios.js"
 import {initDataConstants,
     categoryConstants,
-    productConstants}from "../actionTyps.js"
+    productConstants}from "../actionTypes.js"
 
 
     

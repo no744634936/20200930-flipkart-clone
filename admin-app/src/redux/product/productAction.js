@@ -1,5 +1,5 @@
-import axios from "axios"
-import {productConstants} from "../actionTyps.js"
+import axios from "../../helper/axios.js"
+import {productConstants} from "../actionTypes.js"
 
 
 export const addProduct=(form)=>{

@@ -1,5 +1,5 @@
-import axios from "axios"
-import {categoryConstants} from "../actionTyps.js"
+import axios from "../../helper/axios.js"
+import {categoryConstants} from "../actionTypes.js"
 export const getAllCategories=()=>{
     return async(dispatch)=>{
         dispatch({type:categoryConstants.GET_ALL_CATEGORIES_REQUEST})
@@ -25,7 +25,7 @@ export const addCategory=(form)=>{
         dispatch({type:categoryConstants.ADD_NEW_CATEGORIES_REQUEST})
 
         console.log("form---",form);
-        
+        console.log("axios token",axios.defaults.headers.common["Authorization"]);
         const response=await axios.post("/api/category/create",form)
         console.log("create",response);
         if(response.status==200){

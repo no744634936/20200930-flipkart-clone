@@ -1,4 +1,4 @@
-import {initDataConstants,categoryConstants,productConstants}from "../actionTyps.js"
+import {initDataConstants,categoryConstants,productConstants}from "../actionTypes.js"
 
 const initialState={
     products:[],

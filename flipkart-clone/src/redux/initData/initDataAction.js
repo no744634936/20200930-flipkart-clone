@@ -1,7 +1,7 @@
 import axios from "axios";
 import {initDataConstants,
     categoryConstants,
-    productConstants}from "../actionTyps.js"
+    productConstants}from "../actionTypes.js"
 
 
     
@@ -20,6 +20,8 @@ export const getInitialData=()=>{
                 type:productConstants.GET_ALL_PRODUCTS_SUCCESS,
                 payload:{products:productList}
             })
+        }else{
+
         }
         console.log(response);
     }

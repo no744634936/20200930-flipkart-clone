@@ -31,4 +31,5 @@ module.exports={
     create_product_failed:{errnum:100021,message:"新建商品失败"},
     create_category_failed: { errnum: 100022, message: "种类创建失败" },
     SIGNOUT_SUCCESSED:{ errnum:100023, message: "退出成功" },
+    get_products_failed:{errnum:100024,message:"获取商品失败"},
 }

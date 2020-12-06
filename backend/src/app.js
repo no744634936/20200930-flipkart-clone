@@ -13,13 +13,14 @@ const categoryRoutes = require("./routes/category.js")
 const productRoutes=require("./routes/product.js")
 const cartRoutes=require("./routes/cart.js")
 const initialDataRoutes=require("./routes/admin/initialData.js")
-
+const cors = require('@koa/cors');
 
 
 // error handler
 onerror(app)
 
 // middlewares
+app.use(cors());
 app.use(bodyparser({
   enableTypes:['json', 'form', 'text']
 }))

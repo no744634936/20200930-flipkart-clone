@@ -1,4 +1,4 @@
-import {REGISTER_USER_REQUEST,REGISTER_USER_SUCCESSED,REGISTER_USER_FAILED} from "../actionTyps.js"
+import {REGISTER_USER_REQUEST,REGISTER_USER_SUCCESSED,REGISTER_USER_FAILED} from "../actionTypes.js"
  
  const initialState={
      error:null,

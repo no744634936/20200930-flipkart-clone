@@ -1,7 +1,7 @@
 
 const{Success,Error}= require("../myTool/apiResultFormat.js")
 const productModel =require("../models/ProudctModel.js")
-const { create_product_failed} = require("../myTool/errInfo.js")
+const {create_product_failed,get_products_failed} = require("../myTool/errInfo.js")
 
 
 class ProductController {
@@ -34,6 +34,18 @@ class ProductController {
 
     }
     getAllProducts = async (ctx, next) => {
+
+    }
+
+
+    getProductsBySlug=async(ctx,next)=>{
+        try {
+            let {slug}=ctx.params;
+            let response=await productModel.getProductsBySlug(slug);
+            ctx.body=response
+        } catch (error) {
+            ctx.body=new Error(get_products_failed)
+        }
 
     }
 

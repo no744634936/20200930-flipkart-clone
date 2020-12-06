@@ -1,4 +1,4 @@
-import {categoryConstants} from "../actionTyps.js"
+import {categoryConstants} from "../actionTypes.js"
 
 const initState={
     categories:[],

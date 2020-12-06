@@ -28,4 +28,6 @@ const upload = multer({storage,limits })
 router.post("/api/product/create",requireSigin,requireAdmin,upload.array("productPicture"),productController.createProduct)
 router.get("/api/product/products",productController.getAllProducts)
 
+//font-end
+router.get("/api/products/:slug",productController.getProductsBySlug)
 module.exports=router

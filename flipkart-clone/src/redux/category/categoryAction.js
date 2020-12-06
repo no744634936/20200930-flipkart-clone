@@ -1,5 +1,5 @@
 import axios from "axios"
-import {categoryConstants} from "../actionTyps.js"
+import {categoryConstants} from "../actionTypes.js"
 export const getAllCategories=()=>{
     return async(dispatch)=>{
         dispatch({type:categoryConstants.GET_ALL_CATEGORIES_REQUEST})
