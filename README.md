@@ -6,8 +6,6 @@ npm install react-checkbox-tree --save
 
 npm install react-icons --save
 
-npm install koa2-formidable --save
-
 
 
 -------------------------------------------------------------------------------
@@ -26,14 +24,30 @@ https://stackoverflow.com/questions/33751203/how-to-parse-multipart-form-data-bo
 
 所以解决方法是使用 @koa/multer
 
-router.post("/api/category/updateCategories",upload.array("categoryImage"),categoryController.updateCategories)
+app.js 文件里面
 
 
-或者和app.js里使用 
-const formidable = require('koa2-formidable');
+const multer = require('@koa/multer');
+const upload = multer();
+app.use(upload.any());
+
+所有页面就可以解析form-data格式数据了
 
 
-我这里写的是
-const formidable = require('koa2-formidable');
-然后路由用的是
-router.post("/api/category/updateCategories",categoryController.updateCategories)
+form-data格式的数据
+除了有上传的图片
+还有从前端一次性传多条记录到后台
+{
+    "name": [
+        "iphone",
+        "Huawei"
+    ],
+    "parentId": [
+        "...",
+        "...."
+    ],
+    "type": [
+        "page",
+        "product"
+    ]
+}
