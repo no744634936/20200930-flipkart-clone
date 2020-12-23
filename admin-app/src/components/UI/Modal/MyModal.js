@@ -6,7 +6,7 @@ import {Modal,Button} from "react-bootstrap"
 function MyModal(props) {
     return (
         <div>
-            <Modal show={props.show} onHide={props.handleClose} animation={false}>
+            <Modal size={props.size} show={props.show} onHide={props.handleClose} animation={false}>
 
                 <Modal.Header closeButton>
                     <Modal.Title>{props.title}</Modal.Title>
@@ -16,7 +16,7 @@ function MyModal(props) {
                     {props.children}
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button variant="primary" onClick={props.handleClose}>
+                    <Button variant="primary" onClick={props.handleSave}>
                         Save Changes
                     </Button>
                 </Modal.Footer>

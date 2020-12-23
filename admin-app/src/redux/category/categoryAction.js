@@ -21,11 +21,13 @@ export const getAllCategories=()=>{
 
 
 export const addCategory=(form)=>{
+
+    console.log(form);
     return async(dispatch)=>{
         dispatch({type:categoryConstants.ADD_NEW_CATEGORIES_REQUEST})
 
-        console.log("form---",form);
-        console.log("axios token",axios.defaults.headers.common["Authorization"]);
+        // console.log("form---",form);
+        // console.log("axios token",axios.defaults.headers.common["Authorization"]);
         const response=await axios.post("/api/category/create",form)
         console.log("create",response);
         if(response.status==200){
@@ -38,6 +40,24 @@ export const addCategory=(form)=>{
                 type:categoryConstants.ADD_NEW_CATEGORIES_FAILED,
                 payload:response.data.error,
             })
+        }
+    }
+}
+
+
+
+export const updateCategories=(form)=>{
+        for (const [key, value] of form.entries()) {
+            console.log(`${key}: ${value}`);
+        }
+
+    return async(dispatch)=>{
+        const response=await axios.post("/api/category/updateCategories",form)
+        console.log("create",response);
+        if(response.status==201){
+            console.log(response);
+        }else{
+            console.log(response);
         }
     }
 }

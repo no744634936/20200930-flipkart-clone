@@ -15,7 +15,8 @@ function Input(props) {
         //     <small id={props.laber+"help"} class="form-text text-muted">{props.errorMessage}</small>
         // </div>
         <Form.Group controlId="formBasicEmail">
-            <Form.Label>{props.label}</Form.Label>
+            {/* 如果有props.label  就显示  <Form.Label>{props.label}</Form.Label> */}
+            {props.label && <Form.Label>{props.label}</Form.Label>}
             <Form.Control
                 type={props.type}
                 placeholder={props.placeholder}

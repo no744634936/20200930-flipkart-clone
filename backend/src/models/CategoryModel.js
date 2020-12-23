@@ -50,6 +50,7 @@ class CategoryModel {
                 name:category.name,
                 slug:category.slug,
                 parentId:category.parentId,
+                type:category.type,
                 children:this.formatCategories(categories,category._id)
             })
         })
@@ -64,6 +65,11 @@ class CategoryModel {
             console.log("categoryList",JSON.stringify(categoryList));
         }
         return categoryList;
+    }
+
+    updateCategories=async(id,category)=>{
+        console.log(category);
+        let updatedCategory=await Categories.findOneAndUpdate({_id:id},category,{new:true});
     }
 }
 

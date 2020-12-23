@@ -25,6 +25,7 @@ class initDataModel {
                 name:category.name,
                 slug:category.slug,
                 parentId:category.parentId,
+                type:category.type,
                 children:this.formatCategories(categories,category._id)
             })
         })

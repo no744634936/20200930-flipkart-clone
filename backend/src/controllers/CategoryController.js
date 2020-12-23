@@ -34,6 +34,50 @@ class CategoryController {
         }
     }
 
+
+    updateCategories=async (ctx,next)=>{
+
+        //id, name ,parentId,type 都是数组
+        let {id,name,parentId,type}=ctx.request.body
+        console.log(id,name,parentId,type);
+        let updatedCategories=[]
+
+        //前端有可能传来数组，也有可能传来一个值
+        if(name instanceof Array){
+            for(let i=0;i<name.length;i++){
+                let category={
+                    name:name[i],
+                    type:type[i],
+                }
+                if(parentId[i]!==""){
+                    category.parentId=parentId[i]
+                }
+                log
+                let updatedCategory = await categoryModel.updateCategories(id[i],category)
+                updatedCategories.push(updatedCategory)
+            }
+            return  ctx.body={
+                status:201,
+                updatedCategories:updatedCategories,
+            }
+        }else{
+            let category={
+                name,
+                type
+            }
+            if(parentId!==""){
+                category.parentId=parentId;
+            }
+
+            console.log(category);
+            let updatedCategory = await categoryModel.updateCategories(id,category)
+            return  ctx.body={
+                status:201,
+                updatedCategories:updatedCategory,
+            }
+        }
+    }
+
 }
 
 module.exports=new CategoryController()

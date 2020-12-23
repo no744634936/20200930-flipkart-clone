@@ -3,6 +3,8 @@ const app = new Koa()
 const json = require('koa-json')
 const onerror = require('koa-onerror')
 const bodyparser = require('koa-bodyparser')
+const formidable = require('koa2-formidable');
+
 const logger = require('koa-logger')
 const render = require('koa-art-template')
 const index = require('./routes/index')
@@ -24,6 +26,8 @@ app.use(cors());
 app.use(bodyparser({
   enableTypes:['json', 'form', 'text']
 }))
+
+app.use(formidable());
 app.use(json())
 app.use(logger())
 

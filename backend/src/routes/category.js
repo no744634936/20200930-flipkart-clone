@@ -28,5 +28,6 @@ const upload = multer({storage,limits })
 
 router.post("/api/category/create",requireSigin,requireAdmin,upload.single("categoryImage"),categoryController.createCategory)
 router.get("/api/category/getCategories",categoryController.getAllCategories)
+router.post("/api/category/updateCategories",categoryController.updateCategories)
 
 module.exports=router
