@@ -26,6 +26,7 @@ const buildNewCategories=(parentId,categories,Newcategory)=>{
     //cate.children.length>0 和 cate.children 是同一个意思，所以就if条件里就不要用cate.children && cate.children.length>0
     categories.forEach(cate=>{
         if(cate._id==parentId){
+            //使用递归的写法
             myCategories.push({
                 ...cate,
                 children:(cate.children) ?  buildNewCategories(parentId,[...cate.children,{
@@ -33,9 +34,24 @@ const buildNewCategories=(parentId,categories,Newcategory)=>{
                     name:Newcategory.name,
                     slug:Newcategory.slug,
                     parentId:Newcategory.parentId,
+                    type:Newcategory.type,
                     children:Newcategory.children,
                 }],Newcategory):[]
             })
+
+            // //不使用递归的写法
+            // let new_cate={
+            //     _id:Newcategory._id,
+            //     name:Newcategory.name,
+            //     slug:Newcategory.slug,
+            //     parentId:Newcategory.parentId,
+            //     type:Newcategory.type,
+            //     children:[]
+            // }
+            // myCategories.push({
+            //     ...cate,
+            //     children:(cate.children) ?[...cate.children,new_cate] :[new_cate]
+            // })
         }else{
             myCategories.push({
                 ...cate,

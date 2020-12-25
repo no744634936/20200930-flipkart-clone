@@ -2,12 +2,13 @@
 const slugify=require("slugify")
 const Categories =require("../db/category.js")
 const {PROJECT_URL}= require("../config/keys.js")
+const { nanoid } =require('nanoid')
 
 class CategoryModel {
     createCategory=async (name,parentId,pictureName)=>{
         const categoryObj={
             name:name,
-            slug:slugify(name),
+            slug:`${slugify(name)}-${nanoid(10)}`,
         }
     
         if(parentId){
@@ -68,8 +69,21 @@ class CategoryModel {
     }
 
     updateCategories=async(id,category)=>{
-        console.log(category);
         let updatedCategory=await Categories.findOneAndUpdate({_id:id},category,{new:true});
+    }
+
+    deleteCategories=async(ids)=>{
+        const deletedCategories=[];
+        for(let i=0;i<ids.length;i++){
+            const deleteCategory=await Categories.findOneAndDelete({_id:ids[i].id})
+            deletedCategories.push(deleteCategory)
+        }
+
+        if(deletedCategories.length===ids.length){
+            return deletedCategories
+        }else{
+            return []
+        }
     }
 }
 

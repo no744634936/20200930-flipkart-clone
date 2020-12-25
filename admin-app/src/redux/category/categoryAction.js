@@ -61,3 +61,20 @@ export const updateCategories=(form)=>{
         }
     }
 }
+
+
+export const deleteCate=(ids)=>{
+    return async(dispatch)=>{
+        //不能直接传数组ids，只能传object
+        const response=await axios.post("/api/category/deleteCategories",{
+            payload:{ids}
+        })
+        console.log("delete",response);
+
+        if(response.status=201){
+            return true
+        }else{
+            return false
+        }
+    }
+}

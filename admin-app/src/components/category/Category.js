@@ -2,7 +2,7 @@ import React,{useEffect,useState} from 'react'
 import Layout from "../../components/layout/Layout.js"
 import {Container,Row,Col} from "react-bootstrap"
 import {useDispatch,useSelector} from "react-redux"
-import {addCategory,updateCategories} from "../../redux/category/categoryAction.js"
+import {getAllCategories,addCategory,updateCategories,deleteCate} from "../../redux/category/categoryAction.js"
 import Input from "../UI/Input/Input.js"
 import "./category.style.css"
 import MyModal from "../UI/Modal/MyModal.js"
@@ -102,10 +102,14 @@ const Category = props => {
     const [editShow,setEditShow]= useState(false);
     const handleEditClose = () => setEditShow(false);
     const handleEditShow = () => {
+        getCheckedAndExpanded()
+        setEditShow(true)
+    };
 
-
+    const　getCheckedAndExpanded=()=>{
         let categories=createCategoryList(categoriesData.categories);
         //点击的category都放进checked
+        //checked,expanded 数组里面都是id
         console.log("checked and expanded",checked,expanded,categories);
 
         let checked_array=[]
@@ -127,14 +131,15 @@ const Category = props => {
             })
             category && expanded_array.push(category)
         })
-
-        console.log(checked_array,expanded_array);
+        console.log("-----------------------");
+        console.log(expanded_array);
+        console.log(checked_array);
+        
         
         set_checked_array(checked_array)
         set_expanded_array(expanded_array)
 
-        setEditShow(true)
-    };
+    }
 
 
     const handleCateogryEdit=(key,value,id,type)=>{
@@ -144,7 +149,6 @@ const Category = props => {
             //index ===_index ? {...item,[key]:value}: item 的意思是如果条件为true就修改item，否则就返回原本的item
             let update_checked_arr=checked_array.map((item)=> item.id ===id ? {...item,[key]:value}: item)
             
-            console.log("shit",update_checked_arr);
            //将修改的内容放到update_checked_arr数组里去。然后又通过handleEditShow 方法将修改后的数据显示出来
             set_checked_array(update_checked_arr)
             
@@ -168,8 +172,6 @@ const Category = props => {
 
 
         checked_array.forEach(item=>{
-            console.log(item.type);
-
             form.append('id',item.id);
             form.append('name',item.name);
             form.append('parentId',item.parentId ? item.parentId : '');
@@ -186,6 +188,7 @@ const Category = props => {
         dispatch(updateCategories(form))
         setEditShow(false);
     }
+
 
 
     const renderUpdateCategoriesModal=()=>{
@@ -248,8 +251,6 @@ const Category = props => {
                         {
                             checked_array.length>0 && 
                             checked_array.map((item,index)=>{
-                                console.log(item.name);
-                                console.log(item.type);
                                 return(
                                     <Row key={index}>
                                     <Col>
@@ -298,6 +299,7 @@ const Category = props => {
     }
 
 
+
     const renderAddCategoryModal=()=>{
 
         return(
@@ -332,6 +334,67 @@ const Category = props => {
 
     }
 
+
+    //delete category
+    const[deleteCategoryModal,setDeleteCategoryModal]=useState(false)
+
+    const deleteCategories=()=>{
+        // 
+        const checkedIdArray=checked_array.map(item=>({id:item.id}));
+        const expandedIdArray=expanded_array.map(item=>({id:item.id}));
+        const idsArray=checkedIdArray.concat(expandedIdArray)
+        console.log(idsArray);
+
+        //dispatch(deleteCate(idsArray)) 执行之后 会return true 或者 false
+        //true是从deleteCate(idsArray) 方法里返回过来的
+        dispatch(deleteCate(idsArray)).then(result=>{
+            //当result等于 true的时候 刷新categories 并关闭页面
+            if(result){
+                dispatch(getAllCategories())
+                setDeleteCategoryModal(false)
+            }
+        });
+    }
+
+    const renderDeleteCategoryModal=()=>{
+        
+        return(
+            <MyModal
+                modalTitle="Comfirm"
+                show={deleteCategoryModal}
+                handleClose={()=>setDeleteCategoryModal(false)}
+                buttons={[
+                    {
+                        label:"No",
+                        color:"primary",
+                        onClick:()=>{alert("no")}
+                    },
+                    {
+                        label:"yes",
+                        color:"danger",
+                        onClick:deleteCategories
+                    }
+                ]}
+            >
+                <h5>Expanded</h5>
+                {
+                    expanded_array.map((item,index)=><span key={index}>{item.name}</span>)
+                }
+                <h5>Checked</h5>
+                {
+                    checked_array.map((item,index)=><span key={index}>{item.name}</span>)
+                }
+
+
+            </MyModal>
+        )
+    }
+
+    const deleteCategory=()=>{
+        getCheckedAndExpanded()
+        setDeleteCategoryModal(true)
+    }
+
     return (
         <Layout sidebar>
             <Container>
@@ -364,7 +427,7 @@ const Category = props => {
                 </Row>
                 <Row>
                     <Col>
-                    <button>Delete</button>
+                    <button onClick={deleteCategory}>Delete</button>
                     <button onClick={handleEditShow}>Edit</button>
                     </Col>
                 </Row>
@@ -375,6 +438,9 @@ const Category = props => {
 
             {/* 修改category */}
             {renderUpdateCategoriesModal()}
+
+            {/* 删除category */}
+            {renderDeleteCategoryModal()}
 
         </Layout>
     )

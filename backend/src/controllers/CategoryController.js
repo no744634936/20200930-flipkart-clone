@@ -39,7 +39,7 @@ class CategoryController {
 
         //id, name ,parentId,type 都是数组
         let {id,name,parentId,type}=ctx.request.body
-        console.log(id,name,parentId,type);
+
         let updatedCategories=[]
 
         //前端有可能传来数组，也有可能传来一个值
@@ -52,7 +52,6 @@ class CategoryController {
                 if(parentId[i]!==""){
                     category.parentId=parentId[i]
                 }
-                log
                 let updatedCategory = await categoryModel.updateCategories(id[i],category)
                 updatedCategories.push(updatedCategory)
             }
@@ -78,6 +77,22 @@ class CategoryController {
         }
     }
 
+    deleteCategories=async(ctx,next)=>{
+
+        const {ids}=ctx.request.body.payload
+        let deletedCategories = await categoryModel.deleteCategories(ids)
+        if(deletedCategories.length>0){
+            return  ctx.body={
+                status:201,
+                body:"categories removed"
+            }
+        }else{
+            return  ctx.body={
+                status:400,
+                body:"something went wrong"
+            }
+        }
+    }
 }
 
 module.exports=new CategoryController()
