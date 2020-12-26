@@ -5,12 +5,13 @@ const { create_category_failed} = require("../myTool/errInfo.js")
 
 class CategoryController {
     createCategory=async (ctx,next)=>{
-
+        console.log(ctx.request);
         const {name,parentId}=ctx.request.body
         const pictureName=ctx.request.file.filename
-        console.log(ctx.request.file);
+
         try{
             let newCategory=await categoryModel.createCategory(name,parentId,pictureName)
+           console.log("newCate",newCategory);
             ctx.body=new Success(newCategory)
         }catch(err){
             console.error(err.message,err.stack);

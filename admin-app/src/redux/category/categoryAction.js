@@ -22,7 +22,10 @@ export const getAllCategories=()=>{
 
 export const addCategory=(form)=>{
 
-    console.log(form);
+    for (const [key, value] of form.entries()) {
+        console.log(`${key}: ${value}`);
+    }
+
     return async(dispatch)=>{
         dispatch({type:categoryConstants.ADD_NEW_CATEGORIES_REQUEST})
 

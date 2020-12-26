@@ -3,7 +3,7 @@ const app = new Koa()
 const json = require('koa-json')
 const onerror = require('koa-onerror')
 const bodyparser = require('koa-bodyparser')
-const multer = require('@koa/multer');
+// const multer = require('@koa/multer');
 const logger = require('koa-logger')
 const render = require('koa-art-template')
 const index = require('./routes/index')
@@ -23,8 +23,10 @@ onerror(app)
 // middlewares
 app.use(cors());
 
-const upload = multer();
-app.use(upload.any());
+
+//category.js文件里面已经使用了multer了，app.js里面就不要用了
+// const upload = multer();
+// app.use(upload.any());
 
 app.use(bodyparser({
   enableTypes:['json', 'form', 'text']

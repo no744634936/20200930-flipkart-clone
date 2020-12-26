@@ -18,7 +18,7 @@ const storage=multer.diskStorage({
 })
 
 const limits = {
-    fields: 10,//Number of non-file fields
+    fields: 100,//Number of non-file fields
     fileSize: 500 * 1024,//File Size Unit b
     files: 6//Number of documents
 }
@@ -28,7 +28,9 @@ const upload = multer({storage,limits })
 
 router.post("/api/category/create",requireSigin,requireAdmin,upload.single("categoryImage"),categoryController.createCategory)
 router.get("/api/category/getCategories",categoryController.getAllCategories)
-router.post("/api/category/updateCategories",categoryController.updateCategories)
+
+//这里的upload.array("categoryImage") 不是用来传图片的，是将前端传过来的数据解析成form-data格式
+router.post("/api/category/updateCategories",upload.array("categoryImage"),categoryController.updateCategories)
 router.post("/api/category/deleteCategories",categoryController.deleteCategories)
 
 module.exports=router

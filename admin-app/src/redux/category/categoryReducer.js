@@ -84,7 +84,6 @@ const categoryReducer=(state=initState,action)=>{
             //state.categories 是redux的store里储存的categories
             //将新的category添加到store里的categories里面去。
             let Newcategory=action.payload.category;
-
             let updatedCategories=buildNewCategories(Newcategory.parentId,state.categories,Newcategory);
             
             state={

@@ -11,11 +11,12 @@ requireSigin = async (ctx, next) => {
             ctx.request.userInfo=userInfo
             await next();
         } else {
+            console.log("test");
             ctx.body=new Error({errnum:10020,message:"Authorization required"})
         }
     } catch (err) {
         console.error(err);
-        ctx.body=new Error(err)
+        ctx.body=new Error({errnum:10020,message:"Authorization required"})
     }
 }
 
