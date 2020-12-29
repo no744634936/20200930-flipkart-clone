@@ -1,25 +1,25 @@
-
 import React from 'react'
 import Input from "../../UI/Input/Input.js"
 import MyModal from "../../UI/Modal/MyModal.js"
 import {Row,Col} from "react-bootstrap"
 
-const RenderUpdateCategoriesModal=(props)=>{
+const RenderUpdateCategoriesModal = (props) => {
     const{
-        size,
-        editShow,
+        show,
         handleClose,
         handleSave,
         modalTitle,
+        size,
         checked_array,
         expanded_array,
         handleCateogryEdit,
         CategoryList,
 
-    }=props
+    } = props
+
     return(
         <MyModal 
-            show={editShow}
+            show={show}
             handleClose={handleClose}
             handleSave={handleSave}
             modalTitle={modalTitle}

@@ -22,9 +22,9 @@ export const getAllCategories=()=>{
 
 export const addCategory=(form)=>{
 
-    for (const [key, value] of form.entries()) {
-        console.log(`${key}: ${value}`);
-    }
+    // for (const [key, value] of form.entries()) {
+    //     console.log(`${key}: ${value}`);
+    // }
 
     return async(dispatch)=>{
         dispatch({type:categoryConstants.ADD_NEW_CATEGORIES_REQUEST})
@@ -34,7 +34,7 @@ export const addCategory=(form)=>{
             // console.log("axios token",axios.defaults.headers.common["Authorization"]);
             const response=await axios.post("/api/category/create",form)
             console.log("create",response);
-            if(response.status==200){
+            if(response.status===200){
                 dispatch({
                     type:categoryConstants.ADD_NEW_CATEGORIES_SUCCESS,
                     payload:{category:response.data.data},
@@ -55,18 +55,25 @@ export const addCategory=(form)=>{
 
 
 
-export const updateCategories=(form)=>{
-        for (const [key, value] of form.entries()) {
-            console.log(`${key}: ${value}`);
-        }
+export const updateCategories = (form) => {
+    
+        // form数据不能直接打印，必须用for循环来打印
+        // for (const [key, value] of form.entries()) {
+        //     console.log(`${key}: ${value}`);
+        // }
 
-    return async(dispatch)=>{
-        const response=await axios.post("/api/category/updateCategories",form)
-        console.log("create",response);
-        if(response.status==201){
-            console.log(response);
+    return async (dispatch) => {
+        dispatch({type:categoryConstants.UPDATE_CATEGORIES_REQUEST})
+        const response = await axios.post("/api/category/updateCategories", form)
+        console.log("haha response",response);
+        if (response.data.status === 201) {
+            dispatch({type:categoryConstants.UPDATE_CATEGORIES_SUCCESS})
+            //更新数据之后，再获取所有category，就相当于刷新了页面了
+            dispatch(getAllCategories())
         }else{
-            console.log(response);
+            // console.log(response);
+            const { status } = response
+            dispatch({type:categoryConstants.UPDATE_CATEGORIES_FAILED,payload:status})
         }
     }
 }
@@ -80,10 +87,10 @@ export const deleteCate=(ids)=>{
         })
         console.log("delete",response);
 
-        if(response.status=201){
-            return true
+        if(response.data.status===201){
+            console.log("hahah");
         }else{
-            return false
+            console.log("fafaf");
         }
     }
 }

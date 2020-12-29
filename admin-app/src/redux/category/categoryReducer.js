@@ -73,9 +73,10 @@ const categoryReducer=(state=initState,action)=>{
             }
             break;
         case categoryConstants.GET_ALL_CATEGORIES_FAILED:
-            state={
+            state = {
 
             }
+            break;
         case categoryConstants.ADD_NEW_CATEGORIES_SUCCESS:
             //前端页面添加了一个新的category之后，只是将category放进了数据库，
             //还需要将新的category放进reducer里的store里面去。
@@ -83,13 +84,33 @@ const categoryReducer=(state=initState,action)=>{
 
             //state.categories 是redux的store里储存的categories
             //将新的category添加到store里的categories里面去。
-            let Newcategory=action.payload.category;
-            let updatedCategories=buildNewCategories(Newcategory.parentId,state.categories,Newcategory);
+            let Newcategory = action.payload.category;
+            let updatedCategories = buildNewCategories(Newcategory.parentId, state.categories, Newcategory);
             
-            state={
+            state = {
                 ...state,
-                categories:updatedCategories,
+                categories: updatedCategories,
             }
+            break;
+        case categoryConstants.UPDATE_CATEGORIES_REQUEST:
+            state = {
+                ...state,
+                loading:true,
+            }
+            break;
+        case categoryConstants.UPDATE_CATEGORIES_SUCCESS:
+            state = {
+                ...state,
+                loading:false,
+            }
+            break;
+        case categoryConstants.UPDATE_CATEGORIES_FAILED:
+            state = {
+                ...state,
+                error:action.payload.status,
+            }
+            break;
+
     }
     return state;
 }

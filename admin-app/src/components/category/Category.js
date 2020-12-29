@@ -3,19 +3,23 @@ import Layout from "../../components/layout/Layout.js"
 import {Container,Row,Col} from "react-bootstrap"
 import {useDispatch,useSelector} from "react-redux"
 import {getAllCategories,addCategory,updateCategories,deleteCate} from "../../redux/category/categoryAction.js"
-import Input from "../UI/Input/Input.js"
 import "./category.style.css"
-import MyModal from "../UI/Modal/MyModal.js"
 import CheckboxTree from "react-checkbox-tree"
 import { 
     IoIosCheckbox,
     IoIosCheckboxOutline,
     IoIosArrowDown,
     IoIosArrowForward,
+    IoIosAdd,
+    IoIosTrash,
+    IoIosCloudUpload,
+
  } from "react-icons/io";
 import 'react-checkbox-tree/lib/react-checkbox-tree.css';
 import { LOGIN_FAILED } from '../../redux/actionTypes.js'
-import RenderUpdateCategoriesModal from "./childrenComponents/updateCategoriesModal.js"
+import RenderUpdateCategoriesModal from "./childrenComponents/UpdateCategoriesModal.js"
+import RenderAddCategoryModal from "./childrenComponents/AddCategoryModal.js"
+import RenderDeleteCategoryModal from "./childrenComponents/DeleteCategoryModal.js"
 
 const Category = props => {
     const categoriesData = useSelector(state => state.categoryData)
@@ -56,7 +60,7 @@ const Category = props => {
     //add modal 的代码,我只是修改了handleClose 方法的代码。
     const [show, setShow] = useState(false);
     const handleClose = () => {setShow(false)};
-    const handleShow = () => setShow(true);
+    const handleShow = () => {setShow(true);}
 
     const handleNewSave=()=>{
         let form=new FormData();
@@ -88,7 +92,6 @@ const Category = props => {
         })
         return options
     }
-
 
     const handleCategoryImage=(e)=>{
         setCategoryImage(e.target.files[0]);
@@ -138,7 +141,6 @@ const Category = props => {
 
     }
 
-
     const handleCateogryEdit=(key,value,id,type)=>{
 
         if(type=="checked"){
@@ -148,12 +150,16 @@ const Category = props => {
             
            //将修改的内容放到update_checked_arr数组里去。然后又通过handleEditShow 方法将修改后的数据显示出来
             set_checked_array(update_checked_arr)
+            console.log("checked_arr",update_checked_arr);
             
         }else if(type=="expended"){
             let update_expanded_arr=expanded_array.map((item)=> item.id ===id ? {...item,[key]:value}: item)
             //将修改的内容放到update_expanded_arr数组里去。然后又通过handleEditShow 方法将修改后的数据显示出来
             set_expanded_array(update_expanded_arr)
         }
+
+
+
     }
 
     const updateCategoriesForm=()=>{
@@ -184,42 +190,6 @@ const Category = props => {
         setEditShow(false);
     }
 
-
-    const renderAddCategoryModal=()=>{
-
-        return(
-            <MyModal 
-                show={show}
-                handleClose={handleClose}
-                handleSave={handleNewSave}
-                modalTitle={"Add New Category"}
-            >
-                    <Input
-                        value={categoryName}
-                        placeholder={`category name`}
-                        onChange={e=>setCategoryName(e.target.value)}
-                    />
-
-                    <select
-                        className="form-control"
-                        value={parentCategoryId}
-                        onChange={e=>setParentCategoryId(e.target.value)}
-                    >
-                        <option>select category</option>
-                        {
-                            createCategoryList(categoriesData.categories).map(option=>{
-                                return <option key={option.id} value={option.id}>{option.name}</option>
-                            })
-                        }
-                    </select>
-
-                    <input type="file" name="categoryImage" onChange={handleCategoryImage}></input>
-            </MyModal>
-        )
-
-    }
-
-
     //delete category
     const[deleteCategoryModal,setDeleteCategoryModal]=useState(false)
 
@@ -241,40 +211,6 @@ const Category = props => {
                 }
             });
         }
-    }
-
-    const renderDeleteCategoryModal=()=>{
-        
-        return(
-            <MyModal
-                modalTitle="Comfirm"
-                show={deleteCategoryModal}
-                handleClose={()=>setDeleteCategoryModal(false)}
-                buttons={[
-                    {
-                        label:"No",
-                        color:"primary",
-                        onClick:()=>{alert("no")}
-                    },
-                    {
-                        label:"yes",
-                        color:"danger",
-                        onClick:deleteCategories
-                    }
-                ]}
-            >
-                <h5>Expanded</h5>
-                {
-                    expanded_array.map((item,index)=><span key={index}>{item.name}</span>)
-                }
-                <h5>Checked</h5>
-                {
-                    checked_array.map((item,index)=><span key={index}>{item.name}</span>)
-                }
-
-
-            </MyModal>
-        )
     }
 
     const deleteCategory=()=>{
@@ -321,15 +257,26 @@ const Category = props => {
             </Container>
 
             {/* 添加category */}
-            {renderAddCategoryModal()}
+            <RenderAddCategoryModal
+                show={show}
+                handleClose={handleClose}
+                handleSave={handleNewSave}
+                modalTitle={"Add New Category"}
+                size={"lg"}
+                setCategoryName={setCategoryName}
+                setParentCategoryId={setParentCategoryId}
+                handleCategoryImage={handleCategoryImage}
+                CategoryList={createCategoryList(categoriesData.categories)}
+            >
+            </RenderAddCategoryModal>
 
             {/* 修改category */}
             <RenderUpdateCategoriesModal
                 show={editShow}
                 handleClose={handleEditClose}
                 handleSave={updateCategoriesForm}
-                modalTitle="edit Category"
-                size="lg"
+                modalTitle={"edit Category"}
+                size={"lg"}
                 checked_array={checked_array}
                 expanded_array={expanded_array}
                 handleCateogryEdit={handleCateogryEdit}
@@ -337,7 +284,15 @@ const Category = props => {
             />
 
             {/* 删除category */}
-            {renderDeleteCategoryModal()}
+            <RenderDeleteCategoryModal
+                modalTitle={"Comfirm"}
+                show={deleteCategoryModal}
+                handleClose={() => setDeleteCategoryModal(false)}
+                deleteCategories={deleteCategories}
+                checked_array={checked_array}
+                expanded_array={expanded_array}
+            >
+            </RenderDeleteCategoryModal>
 
         </Layout>
     )
