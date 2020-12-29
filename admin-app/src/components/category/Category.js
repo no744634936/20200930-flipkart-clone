@@ -15,6 +15,7 @@ import {
  } from "react-icons/io";
 import 'react-checkbox-tree/lib/react-checkbox-tree.css';
 import { LOGIN_FAILED } from '../../redux/actionTypes.js'
+import RenderUpdateCategoriesModal from "./childrenComponents/updateCategoriesModal.js"
 
 const Category = props => {
     const categoriesData = useSelector(state => state.categoryData)
@@ -72,14 +73,10 @@ const Category = props => {
         setShow(false)
     }
 
-
-
     //modal 的内容
     const [categoryName,setCategoryName]=useState("");
     const [parentCategoryId,setParentCategoryId]=useState("")
     const [categoryImage,setCategoryImage]=useState("")
-
-    
 
     //递归算法将category放进 modal里的select里的option
     const createCategoryList=(categoriesData,options=[])=>{
@@ -153,9 +150,7 @@ const Category = props => {
             set_checked_array(update_checked_arr)
             
         }else if(type=="expended"){
-            
             let update_expanded_arr=expanded_array.map((item)=> item.id ===id ? {...item,[key]:value}: item)
-
             //将修改的内容放到update_expanded_arr数组里去。然后又通过handleEditShow 方法将修改后的数据显示出来
             set_expanded_array(update_expanded_arr)
         }
@@ -188,116 +183,6 @@ const Category = props => {
         dispatch(updateCategories(form))
         setEditShow(false);
     }
-
-
-
-    const renderUpdateCategoriesModal=()=>{
-        return(
-            <MyModal 
-                show={editShow}
-                handleClose={handleEditClose}
-                handleSave={updateCategoriesForm}
-                modalTitle={"edit Category"}
-                size="lg"
-            >
-                <Row>
-                    <Col>
-                        <h6>Expanded categories</h6>
-                    </Col>
-                </Row>
-                        {
-                            expanded_array.length>0 && 
-                            expanded_array.map((item,index)=>{
-                                return(
-                                    <Row key={index}>
-                                    <Col>
-                                        <Input
-                                            value={item.name}
-                                            placeholder={`category name`}
-                                            onChange={e=>handleCateogryEdit("name",e.target.value,item.id,"expended")}
-                                        />
-                                    </Col>
-                                    <Col>
-                                        <select
-                                            className="form-control"
-                                            value={item.parentId}
-                                            onChange={e=>handleCateogryEdit("parentId",e.target.value,item.id,"expended")}
-                                        >
-                                            <option>select category</option>
-                                            {
-                                                createCategoryList(categoriesData.categories).map(option=>{
-                                                    return <option key={option.id} value={option.id}>{option.name}</option>
-                                                })
-                                            }
-                                        </select>
-                                    </Col>
-                                    <Col>
-                                        <select className="form-control">
-                                            <option value="">select type</option>
-                                            <option value="store">store</option>
-                                            <option value="product">product</option>
-                                            <option value="page">page</option>
-                                        </select>
-                                    </Col>
-                                </Row>
-                                )
-                            })
-                        }
-                <Row>
-                    <Col>
-                        <h6>checked categories</h6>
-                    </Col>
-                </Row>
-                        {
-                            checked_array.length>0 && 
-                            checked_array.map((item,index)=>{
-                                return(
-                                    <Row key={index}>
-                                    <Col>
-                                        <Input
-                                            value={item.name}
-                                            placeholder={`category name`}
-                                            onChange={e=>handleCateogryEdit("name",e.target.value,item.id,"checked")}
-                                        />
-                                    </Col>
-                                    <Col>
-                                        <select
-                                            className="form-control"
-                                            value={item.parentId}
-                                            onChange={e=>handleCateogryEdit("parentId",e.target.value,item.id,"checked")}
-                                        >
-                                            <option>select category</option>
-                                            {
-                                                createCategoryList(categoriesData.categories).map(option=>{
-                                                    return <option key={option.id} value={option.id}>{option.name}</option>
-                                                })
-                                            }
-                                        </select>
-                                    </Col>
-                                    <Col>
-                                        <select 
-                                            className="form-control"
-                                            value={item.type}
-                                            onChange={e=>handleCateogryEdit("type",e.target.value,item.id,"checked")}
-                                        >
-                                            <option >select type</option>
-                                            <option value="store">store</option>
-                                            <option value="product">product</option>
-                                            <option value="page">page</option>
-                                        </select>
-                                    </Col>
-                                </Row>
-                                )
-                            })
-                        }
-
-
-                    {/* <input type="file" name="categoryImage" onChange={handleCategoryImage}></input> */}
-            </MyModal>
-        )
-
-    }
-
 
 
     const renderAddCategoryModal=()=>{
@@ -345,15 +230,17 @@ const Category = props => {
         const idsArray=checkedIdArray.concat(expandedIdArray)
         console.log(idsArray);
 
-        //dispatch(deleteCate(idsArray)) 执行之后 会return true 或者 false
-        //true是从deleteCate(idsArray) 方法里返回过来的
-        dispatch(deleteCate(idsArray)).then(result=>{
-            //当result等于 true的时候 刷新categories 并关闭页面
-            if(result){
-                dispatch(getAllCategories())
-                setDeleteCategoryModal(false)
-            }
-        });
+        if(checkedIdArray.length>0){
+            //dispatch(deleteCate(idsArray)) 执行之后 会return true 或者 false
+            //true是从deleteCate(idsArray) 方法里返回过来的
+            dispatch(deleteCate(checkedIdArray)).then(result=>{
+                //当result等于 true的时候 刷新categories 并关闭页面
+                if(result){
+                    dispatch(getAllCategories())
+                    setDeleteCategoryModal(false)
+                }
+            });
+        }
     }
 
     const renderDeleteCategoryModal=()=>{
@@ -437,7 +324,17 @@ const Category = props => {
             {renderAddCategoryModal()}
 
             {/* 修改category */}
-            {renderUpdateCategoriesModal()}
+            <RenderUpdateCategoriesModal
+                show={editShow}
+                handleClose={handleEditClose}
+                handleSave={updateCategoriesForm}
+                modalTitle="edit Category"
+                size="lg"
+                checked_array={checked_array}
+                expanded_array={expanded_array}
+                handleCateogryEdit={handleCateogryEdit}
+                CategoryList={createCategoryList(categoriesData.categories)}
+            />
 
             {/* 删除category */}
             {renderDeleteCategoryModal()}
