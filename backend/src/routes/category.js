@@ -19,7 +19,7 @@ const storage=multer.diskStorage({
 
 const limits = {
     fields: 100,//Number of non-file fields
-    fileSize: 500 * 1024,//File Size Unit b
+    fileSize: 500 * 1024*1024,//File Size Unit b
     files: 6//Number of documents
 }
 

@@ -14,6 +14,7 @@ const categoryRoutes = require("./routes/category.js")
 const productRoutes=require("./routes/product.js")
 const cartRoutes=require("./routes/cart.js")
 const initialDataRoutes=require("./routes/admin/initialData.js")
+const pageRoute=require("./routes/page.js")
 const cors = require('@koa/cors');
 
 
@@ -62,6 +63,7 @@ app.use(categoryRoutes.routes(), categoryRoutes.allowedMethods())
 app.use(productRoutes.routes(), productRoutes.allowedMethods())
 app.use(cartRoutes.routes(), cartRoutes.allowedMethods())
 app.use(initialDataRoutes.routes(), initialDataRoutes.allowedMethods())
+app.use(pageRoute.routes(), pageRoute.allowedMethods())
 
 // error-handling
 app.on('error', (err, ctx) => {

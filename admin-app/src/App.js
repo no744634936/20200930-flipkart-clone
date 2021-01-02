@@ -4,6 +4,7 @@ import PrivateRoute from "./components/HOC/PrivateRoute.js"
 import Home from "./components/home/Home.js"
 import SignIn from "./components/signin/SignIn.js"
 import SignUp from "./components/signup/SignUp.js"
+import NewPage from "./components/newPage/NewPage.js"
 import {loadUserAction} from "./redux/authentication/authAction"
 import { useDispatch, useSelector } from "react-redux";
 import Products from "./components/products/Products.js"
@@ -21,13 +22,26 @@ function App() {
         if(!loginData.isAuthenticated){
             dispatch(loadUserAction())
         }
-        dispatch(getInitialData())
-    },[])
+
+        //只有当用户登录之后才加载数据，没登陆不加载，在登录页面的时候
+        //不使用getInitialData()方法，
+        //useEffect 相当于componentDidMount 与  componentDidUpdate
+        //因为app是root文件，当打登录页面之后，useEffect就已经执行了componentDidMount
+        //而这个时候因为用户还没有登录，所以没有调用getInitialData()方法
+        //即使你去了category页面也得不到categories跟products的数据，
+        //现在就是要写上[loginData.isAuthenticated]
+        //当loginData.isAuthenticated改变的时候执行componentDidUpdate 方法。
+        //就可以得到categories跟products的数据，
+        if(loginData.isAuthenticated){
+            dispatch(getInitialData())
+        }
+    },[loginData.isAuthenticated])
   return (
         <BrowserRouter>
             <div className="App">
                 <Switch>
                     <PrivateRoute exact path="/" component={Home}></PrivateRoute>
+                    <PrivateRoute exact path="/page" component={NewPage}></PrivateRoute>
                     <PrivateRoute exact path="/products" component={Products}></PrivateRoute>
                     <PrivateRoute exact path="/category" component={Category}></PrivateRoute>
                     <PrivateRoute exact path="/orders" component={()=><p>orders</p>}></PrivateRoute>

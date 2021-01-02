@@ -39,6 +39,7 @@ export const addCategory=(form)=>{
                     type:categoryConstants.ADD_NEW_CATEGORIES_SUCCESS,
                     payload:{category:response.data.data},
                 })
+                
             }else{
                 dispatch({
                     type:categoryConstants.ADD_NEW_CATEGORIES_FAILED,
@@ -72,7 +73,7 @@ export const updateCategories = (form) => {
             dispatch(getAllCategories())
         }else{
             // console.log(response);
-            const { status } = response
+            const { status } = response.data
             dispatch({type:categoryConstants.UPDATE_CATEGORIES_FAILED,payload:status})
         }
     }
@@ -81,6 +82,7 @@ export const updateCategories = (form) => {
 
 export const deleteCate=(ids)=>{
     return async(dispatch)=>{
+        dispatch({type:categoryConstants.DELETE_CATEGORIES_REQUEST})
         //不能直接传数组ids，只能传object
         const response=await axios.post("/api/category/deleteCategories",{
             payload:{ids}
@@ -88,9 +90,13 @@ export const deleteCate=(ids)=>{
         console.log("delete",response);
 
         if(response.data.status===201){
-            console.log("hahah");
+            dispatch({type:categoryConstants.DELETE_CATEGORIES_SUCCESS,})
+            //更新数据之后，再获取所有category，就相当于刷新了页面了
+            dispatch(getAllCategories())
         }else{
-            console.log("fafaf");
+            dispatch({type:categoryConstants.DELETE_CATEGORIES_FAILED,payload:{
+                error:response.data.status
+            }})
         }
     }
 }

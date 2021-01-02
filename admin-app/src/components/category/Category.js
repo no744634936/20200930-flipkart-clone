@@ -10,9 +10,6 @@ import {
     IoIosCheckboxOutline,
     IoIosArrowDown,
     IoIosArrowForward,
-    IoIosAdd,
-    IoIosTrash,
-    IoIosCloudUpload,
 
  } from "react-icons/io";
 import 'react-checkbox-tree/lib/react-checkbox-tree.css';
@@ -64,6 +61,11 @@ const Category = props => {
 
     const handleNewSave=()=>{
         let form=new FormData();
+
+        if(categoryName===""){
+            alert("category name is required!")
+            return 
+        }
         form.append("name",categoryName)
         form.append("parentId",parentCategoryId)
         form.append("categoryImage",categoryImage)
@@ -203,13 +205,8 @@ const Category = props => {
         if(checkedIdArray.length>0){
             //dispatch(deleteCate(idsArray)) 执行之后 会return true 或者 false
             //true是从deleteCate(idsArray) 方法里返回过来的
-            dispatch(deleteCate(checkedIdArray)).then(result=>{
-                //当result等于 true的时候 刷新categories 并关闭页面
-                if(result){
-                    dispatch(getAllCategories())
-                    setDeleteCategoryModal(false)
-                }
-            });
+            dispatch(deleteCate(checkedIdArray))
+            setDeleteCategoryModal(false)
         }
     }
 
@@ -261,7 +258,7 @@ const Category = props => {
                 show={show}
                 handleClose={handleClose}
                 handleSave={handleNewSave}
-                modalTitle={"Add New Category"}
+                title={"Add New Category"}
                 size={"lg"}
                 setCategoryName={setCategoryName}
                 setParentCategoryId={setParentCategoryId}
@@ -275,7 +272,7 @@ const Category = props => {
                 show={editShow}
                 handleClose={handleEditClose}
                 handleSave={updateCategoriesForm}
-                modalTitle={"edit Category"}
+                title={"edit Category"}
                 size={"lg"}
                 checked_array={checked_array}
                 expanded_array={expanded_array}
@@ -285,9 +282,10 @@ const Category = props => {
 
             {/* 删除category */}
             <RenderDeleteCategoryModal
-                modalTitle={"Comfirm"}
+                title={"Comfirm"}
                 show={deleteCategoryModal}
                 handleClose={() => setDeleteCategoryModal(false)}
+                // handleSave={handleSave}
                 deleteCategories={deleteCategories}
                 checked_array={checked_array}
                 expanded_array={expanded_array}

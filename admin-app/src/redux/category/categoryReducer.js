@@ -107,6 +107,26 @@ const categoryReducer=(state=initState,action)=>{
         case categoryConstants.UPDATE_CATEGORIES_FAILED:
             state = {
                 ...state,
+                loading:false,
+                error:action.payload.status,
+            }
+            break;
+        case categoryConstants.DELETE_CATEGORIES_REQUEST:
+            state = {
+                ...state,
+                loading:true,
+            }
+            break;
+        case categoryConstants.DELETE_CATEGORIES_SUCCESS:
+            state = {
+                ...state,
+                loading:false,
+            }
+            break;
+        case categoryConstants.DELETE_CATEGORIES_FAILED:
+            state = {
+                ...state,
+                loading:false,
                 error:action.payload.status,
             }
             break;

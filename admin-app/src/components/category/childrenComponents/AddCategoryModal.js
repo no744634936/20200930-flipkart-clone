@@ -8,7 +8,7 @@ const RenderAddCategoryModal = (props) => {
         show,
         handleClose,
         handleSave,
-        modalTitle,
+        title,
         categoryName,
         setCategoryName,
         setParentCategoryId,
@@ -22,7 +22,7 @@ const RenderAddCategoryModal = (props) => {
             show={show}
             handleClose={handleClose}
             handleSave={handleSave}
-            modalTitle={modalTitle}
+            title={title}
         >
                 <Input
                     value={categoryName}

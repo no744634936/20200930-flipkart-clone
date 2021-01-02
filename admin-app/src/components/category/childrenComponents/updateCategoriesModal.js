@@ -8,7 +8,7 @@ const RenderUpdateCategoriesModal = (props) => {
         show,
         handleClose,
         handleSave,
-        modalTitle,
+        title,
         size,
         checked_array,
         expanded_array,
@@ -22,7 +22,7 @@ const RenderUpdateCategoriesModal = (props) => {
             show={show}
             handleClose={handleClose}
             handleSave={handleSave}
-            modalTitle={modalTitle}
+            title={title}
             size={size}
         >
             <Row>
@@ -57,7 +57,11 @@ const RenderUpdateCategoriesModal = (props) => {
                                     </select>
                                 </Col>
                                 <Col>
-                                    <select className="form-control">
+                                    <select 
+                                        className="form-control"
+                                        value={item.type}
+                                        onChange={e=>handleCateogryEdit("type",e.target.value,item.id,"expended")}
+                                    >
                                         <option value="">select type</option>
                                         <option value="store">store</option>
                                         <option value="product">product</option>

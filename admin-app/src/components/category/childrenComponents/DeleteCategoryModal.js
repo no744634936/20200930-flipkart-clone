@@ -4,7 +4,7 @@ import MyModal from "../../UI/Modal/MyModal.js"
 
 const RenderDeleteCategoryModal = (props) => {
     const {
-        modalTitle,
+        title,
         show,
         handleClose,
         deleteCategories,
@@ -14,7 +14,7 @@ const RenderDeleteCategoryModal = (props) => {
         
     return(
         <MyModal
-            modalTitle={modalTitle}
+            title={title}
             show={show}
             handleClose={handleClose}
             buttons={[

@@ -32,6 +32,9 @@ export const categoryConstants={
     UPDATE_CATEGORIES_REQUEST: "update category request",
     UPDATE_CATEGORIES_SUCCESS: "update category success",
     UPDATE_CATEGORIES_FAILED: "update category failed",
+    DELETE_CATEGORIES_REQUEST: "delete category request",
+    DELETE_CATEGORIES_SUCCESS: "delete category success",
+    DELETE_CATEGORIES_FAILED: "delete category failed",
 }
 
 //product
@@ -46,4 +49,11 @@ export const initDataConstants={
     GET_ALL_INITIAL_DATA_REQUEST:"get all initial data request",
     GET_ALL_INITIAL_DATA_SUCCESS:"get all initial data success",
     GET_ALL_INITIAL_DATA_FAILED:"get all initial data failed",
+}
+
+//page
+export const pageConstants={
+    CREATE_PAGE_REQUEST:"create page request",
+    CREATE_PAGE_SUCCESS:"create page success",
+    CREATE_PAGE_FAILED:"create page failed"
 }

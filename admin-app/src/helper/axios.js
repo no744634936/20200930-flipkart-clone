@@ -4,7 +4,7 @@ import store from "../redux/store.js"
 import {LOGOUT} from "../redux/actionTypes.js"
 
 
-const token = localStorage.getItem('token');
+// const token = localStorage.getItem('token');
 const axiosInstance = axios.create({
     baseURL:backend_base_url,
     // headers: {
@@ -18,6 +18,7 @@ const axiosInstance = axios.create({
 axiosInstance.interceptors.request.use(req=>{
     const { loginData } = store.getState();
     //每次请求都api都携带token
+    console.log("token",loginData.token);
     if (loginData.token) {
       req.headers.Authorization = `${loginData.token}`;
     }
@@ -27,6 +28,7 @@ axiosInstance.interceptors.request.use(req=>{
 
 
 axiosInstance.interceptors.response.use(res=>{
+    console.log("jwt",res);
     if(res.data.errnum===10020){
         //jwt 过期，token被更改之类的错误就会自动退出登录
         localStorage.clear();
