@@ -9,4 +9,7 @@ router.post("/api/page/create",requireSigin,requireAdmin,upload.fields([
     {name:"products"}
 ]),PageController.createPage)
 
+
+router.get("/api/page/:category/:type",PageController.getPage)
+
 module.exports=router

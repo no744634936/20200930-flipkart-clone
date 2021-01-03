@@ -1,6 +1,10 @@
 const PageModel =require('../models/PageModel')
 const{Success,Error}= require("../myTool/apiResultFormat.js")
 
+//使用了nosql之后，感觉没有必须用modal了
+const Page=require("../db/page.js")
+
+
 class PageController {
     createPage=async(ctx,next)=>{
         try {
@@ -17,6 +21,19 @@ class PageController {
             ctx.body=new Error()
         }
     }
+
+
+    getPage=async(ctx,next)=>{
+        //You can use ctx.query (or long-hand ctx.request.query)
+        let {category,type}=ctx.request.query;
+        if(type==="page"){
+            //一个category只能有一个page
+           let response= await Page.findOne({category:category})
+           ctx.body=new Success({status:0,page:response})
+        }
+    }
 }
+
+
 
 module.exports=new PageController()

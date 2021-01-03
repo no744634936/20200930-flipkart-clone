@@ -1,7 +1,9 @@
 import axios from "axios"
 import {productConstants} from "../actionTypes.js"
 
-export const getProductBySlug=(slug)=>{
+export const getPage=(payload)=>{
+
+    
     return async(dispatch)=>{
         let response= await axios.get(`/api/products/${slug}`)
         if(response.status=200){
