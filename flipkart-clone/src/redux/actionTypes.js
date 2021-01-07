@@ -44,3 +44,17 @@ export const brandPageConstants={
     GET_BRAND_PAGE_FAILED:"get brand page failed"
     
 }
+
+
+export const userConstants = {
+    LOGIN_REQUEST:"user login request",
+    LOGIN_SUCCESSED:"user login  successed",
+    LOGIN_FAILED: "user login failed",
+
+    USER_LOADED:"get the data of current user",
+    USER_LOAD_FAILED:"load user data failed",
+
+    LOGOUT_REQUEST:'logout request',
+    LOGOUT:'logout successed',
+    LOGOUT_FAILED:'logout failed',
+}

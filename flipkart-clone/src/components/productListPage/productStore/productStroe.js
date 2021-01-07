@@ -2,6 +2,8 @@ import React, { useEffect,useState} from 'react'
 import {useDispatch,useSelector} from "react-redux"
 import {getProductBySlug} from "../../../redux/product/productAction.js"
 import "./productStore.style.css"
+import { Link } from "react-router-dom"
+
 const ProductStore = (props) => {
 
     const dispatch = useDispatch()
@@ -20,6 +22,7 @@ const ProductStore = (props) => {
     },[])
     return (
         <>
+
             {
                 //map
                 Object.keys(productData.productsByPrice).map((key,index)=>{
@@ -34,17 +37,22 @@ const ProductStore = (props) => {
                                     productData.productsByPrice[key].map(product=>{
                                         return(
                                             <div className="productContainer">
-                                                <div className="productImgContainer">
-                                                    <img src={product.productPictures[0].img} alt=""/>
-                                                </div>
-                                                <div className="productInfo">
-                                                    <div>{product.name}</div>
-                                                    <div>
-                                                        <span>rate</span>
-                                                        <span>Sales</span>
+                                                <Link
+                                                    to={`/${product.slug}/${product._id}`}
+                                                    style={{ display: "block" }}
+                                                >
+                                                    <div className="productImgContainer">
+                                                        <img src={product.productPictures[0].img} alt=""/>
                                                     </div>
-                                                    <div className="producPrice">{product.price}</div>
-                                                </div>
+                                                    <div className="productInfo">
+                                                        <div>{product.name}</div>
+                                                        <div>
+                                                            <span>rate</span>
+                                                            <span>Sales</span>
+                                                        </div>
+                                                        <div className="producPrice">{product.price}</div>
+                                                    </div>
+                                                </Link>
                                             </div>
                                         )
                                     })

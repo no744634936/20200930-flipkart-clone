@@ -46,7 +46,8 @@ class AdminUserController{
                 user:find_result,
             })
         }else{
-            ctx.body=new Error(password_wrong)
+            // ctx.body=new Error(password_wrong)
+            ctx.body={message:"password error or auth error"}
             return
         }
     }
