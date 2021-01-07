@@ -24,8 +24,9 @@ class PageController {
 
 
     getPage=async(ctx,next)=>{
-        //You can use ctx.query (or long-hand ctx.request.query)
-        let {category,type}=ctx.request.query;
+        //从url里面获取参数ctx.params
+        let {category,type}=ctx.params;
+        console.log(category,type);
         if(type==="page"){
             //一个category只能有一个page
            let response= await Page.findOne({category:category})
