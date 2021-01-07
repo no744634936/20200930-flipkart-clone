@@ -1,1 +1,1 @@
-category.js 文件太杂了，需要整理一下
+npm i react-responsive-carousel --save

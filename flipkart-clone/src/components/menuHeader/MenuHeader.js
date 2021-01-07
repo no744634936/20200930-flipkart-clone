@@ -18,7 +18,7 @@ const MenuHeader = () => {
                 <li key={category._id}>
                     {
                         //如果没有parentId，点击之后画面就不会迁移
-                        category.parentId ? <a href={category.slug}>{category.name}</a> : <span>{ category.name}</span>
+                        category.parentId ? <a href={`/${category.slug}?cid=${category._id}&type=${category.type}`}>{category.name}</a> : <span>{ category.name}</span>
                     }
                     {category.children.length>0?(<ul>{renderCategory(category.children)}</ul>):null}
                 </li>

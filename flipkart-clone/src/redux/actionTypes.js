@@ -37,3 +37,10 @@ export const productConstants={
     GET_PRODUCTS_BY_SLUG_SUCCESS:"get  products by slug success",
     GET_PRODUCTS_BY_SLUG_FAILED: "get  products by slug failed"
 }
+
+export const brandPageConstants={
+    GET_BRAND_PAGE_REQUEST:"get brand page request",
+    GET_BRAND_PAGE_SUCCESS:"get brand page success",
+    GET_BRAND_PAGE_FAILED:"get brand page failed"
+    
+}
