@@ -9,6 +9,8 @@ const initState={
         under30k:[],
     },
     loading:false,
+    error:null,
+    productDetails:{}
 }
 
 const productReducer = (state=initState,action) => {
@@ -20,6 +22,26 @@ const productReducer = (state=initState,action) => {
                 productsByPrice:{
                     ...action.payload.productsByPrice
                 }
+            }
+            break;
+        case productConstants.GET_PRODUCTS_DETAILS_BY_ID_REQUEST:
+            state={
+                ...state,
+                loading:true,
+            }
+            break;
+        case productConstants.GET_PRODUCTS_DETAILS_BY_ID_SUCCESS:
+            state={
+                ...state,
+                loading:false,
+                productDetails:action.payload.productDetails
+            }
+            break;
+        case productConstants.GET_PRODUCTS_DETAILS_BY_ID_FAILED:
+            state={
+                ...state,
+                loading:false,
+                error:action.payload.error
             }
             break;
     }

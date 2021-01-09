@@ -35,7 +35,11 @@ export const categoryConstants={
 export const productConstants={
     GET_PRODUCTS_BY_SLUG_REQUEST:"get  products by slug request",
     GET_PRODUCTS_BY_SLUG_SUCCESS:"get  products by slug success",
-    GET_PRODUCTS_BY_SLUG_FAILED: "get  products by slug failed"
+    GET_PRODUCTS_BY_SLUG_FAILED: "get  products by slug failed",
+    
+    GET_PRODUCTS_DETAILS_BY_ID_REQUEST:"get products by id request",
+    GET_PRODUCTS_DETAILS_BY_ID_SUCCESS:"get products by id success",
+    GET_PRODUCTS_DETAILS_BY_ID_FAILED:"get products by id failed",
 }
 
 export const brandPageConstants={

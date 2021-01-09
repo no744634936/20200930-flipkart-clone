@@ -6,6 +6,7 @@ const validate_signup =require("../validator/signupValidation.js")
 router.post("/api/signup",validate_signup,userController.singup)
 router.post("/api/signin",userController.signin)
 router.get("/api/profile",requireSigin,userController.getProfile)
+router.get("/api/user/signout",userController.signout)
 
 
 

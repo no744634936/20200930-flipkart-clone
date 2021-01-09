@@ -1,5 +1,5 @@
 const userModel =require("../models/UserModel.js")
-const { email_exist, register_failed_info,email_not_exist,password_wrong} = require("../myTool/errInfo.js")
+const { email_exist, register_failed_info,email_not_exist,password_wrong,SIGNOUT_SUCCESSED} = require("../myTool/errInfo.js")
 const{Success,Error}= require("../myTool/apiResultFormat.js")
 const {JWT_SECRET_KEY} =require("../config/keys.js")
 const jwt = require('jsonwebtoken');
@@ -55,6 +55,12 @@ class UserController{
     getProfile=async(ctx,next)=>{
         console.log(ctx);
         ctx.body="test profile"
+    }
+
+    signout=async(ctx,next)=>{
+        //ctx.cookies.set('token_cookie', null); 这个是什么意思？
+        ctx.cookies.set('token_cookie', null);
+        ctx.body=new Success(SIGNOUT_SUCCESSED)
     }
 }
 

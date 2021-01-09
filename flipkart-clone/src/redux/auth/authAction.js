@@ -46,7 +46,7 @@ export const signoutAction=()=>{
     return async (dispatch) => {
         dispatch({type:userConstants.LOGOUT_REQUEST})
         //后台清楚掉cookie
-        const response = await axios.get("/api/admin/signout")
+        const response = await axios.get("/api/user/signout")
         //前台清楚掉localStorage
         if (response.data.errnum === 0) {
             localStorage.clear();

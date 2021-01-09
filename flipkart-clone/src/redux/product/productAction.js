@@ -16,3 +16,21 @@ export const getProductBySlug=(slug)=>{
         }
     }
 }
+
+export const getProductDetailsById=(productId)=>{
+    return async(dispatch)=>{
+        dispatch({type:productConstants.GET_PRODUCTS_DETAILS_BY_ID_REQUEST})
+        let response= await axios.get(`/api/products/productDetails/${productId}`)
+        console.log("response",response);
+        if(response.status=200){
+            dispatch({
+                type:productConstants.GET_PRODUCTS_DETAILS_BY_ID_SUCCESS,
+                payload: {productDetails:response.data}
+            })
+        }else{
+            dispatch({
+                type:productConstants.GET_PRODUCTS_DETAILS_BY_ID_FAILED
+            })
+        }
+    }
+}

@@ -46,6 +46,12 @@ class ProductModel{
         }
     }
 
+    getProductDetailsById=async(productId)=>{
+       let response=await Products.find({_id:productId});
+       return response[0];
+        
+    }
+
 }
 
 module.exports=new ProductModel()

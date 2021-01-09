@@ -10,7 +10,7 @@ import {
   DropdownMenu
 } from '../ui/material/material.js';
 import {useDispatch,useSelector,} from "react-redux"
-import { loginAction } from '../../redux/auth/authAction';
+import { loginAction, signoutAction } from '../../redux/auth/authAction';
 
 
 /**
@@ -31,6 +31,17 @@ const Header = (props) => {
     dispatch(loginAction({ email,password}))
   }
 
+  useEffect(() => {
+      //isAuthenticated变成true就关闭登录modal
+    if (loginData.isAuthenticated) {
+        setLoginModal(false)
+    }
+  }, [loginData.isAuthenticated])
+  
+  const logout=()=>{
+      dispatch(signoutAction())
+  }
+
   const renderLoggedInMenu = () => {
     return (
       <DropdownMenu
@@ -48,7 +59,7 @@ const Header = (props) => {
             { label: 'Rewards', href: '', icon: null },
             { label: 'Notifications', href: '', icon: null },
             { label: 'Gift Cards', href: '', icon: null },
-            { label: 'Logout', href: '', icon: null },
+            { label: 'Logout', href: '', icon: null,onClick:logout},
           ]}
       />
     )

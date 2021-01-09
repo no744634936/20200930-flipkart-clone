@@ -48,6 +48,18 @@ class ProductController {
         }
 
     }
+    getProductDetailsById=async(ctx,next)=>{
+        
+        try {
+            let {productId}=ctx.params;
+            let response=await productModel.getProductDetailsById(productId);
+           
+            ctx.body=response
+        } catch (error) {
+            console.error(error);
+            ctx.body=new Error(get_products_failed)
+        }
+    }
 
 }
 

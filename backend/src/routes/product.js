@@ -30,4 +30,5 @@ router.get("/api/product/products",productController.getAllProducts)
 
 //font-end
 router.get("/api/products/:slug",productController.getProductsBySlug)
+router.get("/api/products/productDetails/:productId",productController.getProductDetailsById)
 module.exports=router

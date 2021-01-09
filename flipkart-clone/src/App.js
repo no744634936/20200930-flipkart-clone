@@ -1,8 +1,8 @@
 import React, {useState,useEffect} from 'react';
 import './App.css';
 import HomePage from "./components/homePage/HomePage.js"
-import ProductListPage from "./components/productListPage/ProductListPage.js"
-import ProductDetailsPage from "./components/productListPage/ProductDetailsPage/ProductDetailsPage.js"
+import ProductListPage from "./components/productListPage/productListPage.js"
+import ProductDetailsPage from "./components/productListPage/productDetailsPage/ProductDetailsPage.js"
 import {BrowserRouter, Route,Switch} from "react-router-dom"
 import { useDispatch, useSelector, } from "react-redux"
 import { loadUserAction } from './redux/auth/authAction';
