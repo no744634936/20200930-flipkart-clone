@@ -62,3 +62,11 @@ export const userConstants = {
     LOGOUT:'logout successed',
     LOGOUT_FAILED:'logout failed',
 }
+
+
+export const cartConstans={
+    ADD_TO_REQUEST:"add to cart request",
+    ADD_TO_SUCCESS: "add to cart success",
+    ADD_TO_FAILED:"add to cart failed"
+    
+}

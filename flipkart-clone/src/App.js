@@ -6,6 +6,9 @@ import ProductDetailsPage from "./components/productListPage/productDetailsPage/
 import {BrowserRouter, Route,Switch} from "react-router-dom"
 import { useDispatch, useSelector, } from "react-redux"
 import { loadUserAction } from './redux/auth/authAction';
+import CartPage from './components/cartPage/CartPage.js';
+import { updateCart } from './redux/cart/cartAction';
+
 function App() {
 
   let dispatch=useDispatch()
@@ -18,12 +21,16 @@ function App() {
   }, [loginData.isAuthenticated])
 
 
+  useEffect(() => {
+    dispatch(updateCart())
+  }, [])
 
   return (
     <BrowserRouter>
     <div className="App">
         <Switch>
             <Route exact path="/" component={HomePage}></Route>
+            <Route exact path="/cart" component={CartPage}></Route>
             <Route exact path="/:slug" component={ProductListPage}></Route>
             <Route exact path="/:productSlug/:productId" component={ProductDetailsPage}></Route>
         </Switch>

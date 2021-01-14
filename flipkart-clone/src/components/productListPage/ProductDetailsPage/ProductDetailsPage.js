@@ -11,6 +11,8 @@ import {
     IoIosStar, 
     IoMdCart 
   } from 'react-icons/io';
+import { addToCart } from '../../../redux/cart/cartAction'
+
 
 const ProductDetailsPage = (props) => {
 
@@ -58,6 +60,12 @@ const ProductDetailsPage = (props) => {
                                 marginRight: '5px'
                             }}
                             icon={<IoMdCart />}
+                            onClick={()=>{
+                                let{_id,name,price}=productData.productDetails;
+                                let img=productData.productDetails.productPictures[0].img;
+                                dispatch(addToCart({_id,name,price,img}))
+                                props.history.push("/cart")
+                            }}
                         />
                         <MaterialButton
                             title="BUY NOW"

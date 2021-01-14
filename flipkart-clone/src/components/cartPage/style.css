@@ -1,0 +1,24 @@
+.cartContainer{
+    display: flex;
+    max-width: 1260px;
+    margin: 15px auto;
+    justify-content: space-between;
+    align-items: "flex-start";
+}
+
+
+.cartItemContainer{
+    margin: 10px 5px;
+}
+
+
+.flexRow{
+    display: flex;
+}
+
+
+.cartItemDetails{
+    display: flex;
+    justify-content: space-between;
+    flex: 1;
+}
