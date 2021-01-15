@@ -3,11 +3,11 @@ import {cartConstans} from "../actionTypes.js"
 import store from "../store.js"
 
 
-export const addToCart=(product)=>{
+export const addToCart=(product,inc_or_dec=1)=>{
     return async(dispatch)=>{
 
         const {cartItems} =store.getState().cartData;
-        const quantity=cartItems[product._id] ? parseInt(cartItems[product._id].quantity+1):1
+        const quantity=cartItems[product._id] ? parseInt(cartItems[product._id].quantity+inc_or_dec):1
         console.log(quantity);
         cartItems[product._id]={
             ...product,
